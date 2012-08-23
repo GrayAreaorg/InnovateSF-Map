@@ -11,12 +11,20 @@ class Location(models.Model):
 	fix_address = models.BooleanField()
 	def __unicode__(self):
 		return self.name
-	
+
+class TypeManager(models.Manager):
+    def get_query_set(self):
+        return super(TypeManager, self).order_by('parent__id').reverse()
+
 class Type(models.Model):
 	name		= models.CharField(max_length=256, null = True, blank = True)
 	parent 		= models.ForeignKey('self', null=True, blank=True)
+	
 	def __unicode__(self):
 		return self.name
+	
 	def natural_key(self):
 		return self.name
+	
+	objects		= TypeManager()
 	
