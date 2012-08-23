@@ -14,7 +14,7 @@ class Location(models.Model):
 
 class TypeManager(models.Manager):
     def get_query_set(self):
-        return super(TypeManager, self).order_by('parent__id').reverse()
+        return super(TypeManager, self).get_query_set().order_by('parent__id').reverse()
 
 class Type(models.Model):
 	name		= models.CharField(max_length=256, null = True, blank = True)
