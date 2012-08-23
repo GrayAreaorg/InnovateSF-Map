@@ -61,7 +61,7 @@ $(function(){
 					icon = startupIcon;
 			}
 			
-			if (location.fields.type[1] != undefined) { 
+			if (typeof location.fields.type[1] != 'undefined') { 
 				layer = layerGroups[location.fields.type[0]]['sublayers'][location.fields.type[1]];
 			} else { 
 				layer = layerGroups[location.fields.type[0]];
