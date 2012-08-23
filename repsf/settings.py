@@ -2,9 +2,6 @@
 import sys, os
 import dj_database_url
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 ADMINS = (
