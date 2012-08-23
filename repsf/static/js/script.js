@@ -11,17 +11,18 @@ map.locate({setView: true, maxZoom: 16});
 
 var customIcon = L.Icon.extend({
 	options: {
-	            shadowUrl: '/static/img/custom-shadow.png',
-	            iconSize:     [45, 36],
-	            shadowSize:   [45, 36],
-	            iconAnchor:   [34, 37],
-	            shadowAnchor: [34, 37],
-	            popupAnchor:  [-3, -76]
+	            shadowUrl: '/static/img/shadow.png',
+	            iconSize:     [41, 38],
+	            shadowSize:   [41, 38],
+	            iconAnchor:   [21, 38],
+	            shadowAnchor: [21, 38],
+	            popupAnchor:  [-10, -40]
 	        }
 });
 
-var startupIcon = new customIcon({iconUrl: '/static/img/custom-startup.png'});
-var investorIcon = new customIcon({iconUrl: '/static/img/custom-investor.png'});
+var startupIcon = new customIcon({iconUrl: '/static/img/company.png'});
+var investorIcon = new customIcon({iconUrl: '/static/img/financial-organization.png'});
+var serviceIcon = new customIcon({iconUrl: '/static/img/service-provider.png'});
 
 function iscroll_init(options) {
 	if(typeof options == 'undefined') { return false; }	
@@ -48,7 +49,17 @@ $(function(){
 	    });
 		
 		$.each(locations, function(key, location){
-			icon = (location.fields.type[0] == 'financial-organization') ? investorIcon : startupIcon;
+			var icon;
+			switch(location.fields.type[0]) {
+				case 'financial-organization':
+					icon = investorIcon;
+					break;
+				case 'service-provider':
+					icon = serviceIcon;
+					break;
+				default:
+					icon = startupIcon;
+			}
 			
 			if (location.fields.type[1] != undefined) { 
 				layer = layerGroups[location.fields.type[0]]['sublayers'][location.fields.type[1]];
@@ -56,22 +67,45 @@ $(function(){
 				layer = layerGroups[location.fields.type[0]];
 			}
 			layer['layer'].addLayer( L.marker( 	new L.LatLng(location.fields.lat, location.fields.lng), 
-													{icon: icon} )
-						.bindPopup(location.fields.desc)
-						.openPopup() );
+												{icon: icon} 
+						).bindPopup(location.fields.desc).openPopup() );
 		});
+		
+		
+		//Hide layers if user unchecks box. Refactor the fuck out of this.
+		$('.top>li>div input[type="checkbox"]').change(function() {
+			var parent_li = $(this).parent().parent().parent();
+			var sub_lis = parent_li.find('ul>li');
 
-		//addMarkersRecursively(layerGroups, map);
-		
-		
-		//Hide layers if user unchecks box
-		$('header li div input[type="checkbox"]').change(function() {
 			if ($(this).is(':checked')) {
-				map.addLayer(layerGroups[$(this).parent().parent().parent().removeClass('inactive').attr('id')]['layer']);
+				parent_li.removeClass('inactive');
+				map.addLayer(layerGroups[parent_li.attr('id')]['layer']);
+				sub_lis.each(function(i, el) {
+					$(this).removeClass('inactive').find('input[type="checkbox"]').attr('checked',true);
+					map.addLayer(layerGroups[parent_li.attr('id')]['sublayers'][$(this).attr('id')]['layer']);
+				})
 			} else {
-				map.removeLayer(layerGroups[$(this).parent().parent().parent().addClass('inactive').attr('id')]['layer']);
+				parent_li.addClass('inactive');
+				map.removeLayer(layerGroups[parent_li.attr('id')]['layer']);
+				sub_lis.each(function() {
+					$(this).addClass('inactive').find('input[type="checkbox"]').attr('checked',false);;
+					map.removeLayer(layerGroups[parent_li.attr('id')]['sublayers'][$(this).attr('id')]['layer']);
+				})
 			}
 		});
+		
+		$('.sub>li>div input[type="checkbox"]').change(function() {
+			var sub_parent_li = $(this).parent().parent().parent();
+			var parent_li = $(this).parent().parent().parent().parent().parent();
+			if ($(this).is(':checked')) {
+				sub_parent_li.removeClass('inactive');
+				map.addLayer(layerGroups[parent_li.attr('id')]['sublayers'][sub_parent_li.attr('id')]['layer']);
+			} else {
+				sub_parent_li.addClass('inactive');
+				map.removeLayer(layerGroups[parent_li.attr('id')]['sublayers'][sub_parent_li.attr('id')]['layer']);
+			}
+		});
+		
 		//Make the whole LI into a button (good for mobile!!)
 		$('header li div label').toggle(
 			function(){
@@ -83,6 +117,16 @@ $(function(){
 				li.find('ul').slideUp();
 			}
 		);
+		//SHOW ALL THE THINGS!
+		$.each(layerGroups, function(key, value){
+			map.addLayer(value['layer']);
+			if(value['sublayers'] != {}) {
+				$.each(value['sublayers'], function(key, value) {
+					map.addLayer(value['layer']);
+				});
+			}
+		});
+		
 		//We're all done here, refresh scrolling
 		//REFACTOR
 		if(Modernizr.touch) {

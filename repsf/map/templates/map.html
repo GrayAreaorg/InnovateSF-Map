@@ -5,7 +5,7 @@
 {% block htmlhead %}
 <link rel="stylesheet/less" href="{% get_static_prefix %}css/style.less">
 <script src="{% get_static_prefix %}js/less-1.1.5.min.js"></script>
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.css" />
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.2/leaflet.css" />
 <link rel="stylesheet" href="{% get_static_prefix %}css/MarkerCluster.css" />
 <link rel="stylesheet" href="{% get_static_prefix %}css/MarkerCluster.Default.css" />
 {% endblock %}
@@ -13,9 +13,9 @@
 {% block header %}
   <h1>Represent SF</h1>
   <nav id="main-menu">
-    <ul>
+    <ul class="top">
       {% for type in types %}
-      <li class="active" id="{{type.name}}">
+      <li id="{{type.name}}">
         <div class="menu-label">
           <label for="{{type.name}}">{{type.name|replace:"-, "|title}}</label>
           <div class="toggle">
@@ -23,12 +23,12 @@
           </div>
         </div>
         {% if type.type_set.all %}
-          <ul>
+          <ul class="sub">
           {% for subtype in type.type_set.all %}
-            <li><div class="menu-label">
-              <label for="{{type.name}}">{{subtype.name|replace:"-, "|title}}</label>
+            <li id="{{subtype.name}}"><div class="menu-label">
+              <label for="{{subtype.name}}">{{subtype.name|replace:"-, "|title}}</label>
               <div class="toggle">
-                <input name="{{type.name}}" type="checkbox" checked />
+                <input name="{{subtype.name}}" type="checkbox" checked />
               </div>
             </div></li>
           {% endfor %}
@@ -48,7 +48,7 @@
 {% endblock %}
 
 {% block pre-plugins %}
-<script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.4.2/leaflet.js"></script>
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.1.2"></script>
 <script type="text/javascript" src="{% get_static_prefix %}js/libs/leaflet.markercluster-src.js"></script>
 <script type="text/javascript">
