@@ -1,0 +1,317 @@
+/* ==|== non-semantic helper classes ========================================
+   Please define your styles before this section.
+   ========================================================================== */
+
+/* For image replacement */
+.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; }
+.ir br { display: none; }
+
+/* Hide from both screenreaders and browsers: h5bp.com/u */
+.hidden { display: none !important; visibility: hidden; }
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility: hidden; }
+
+/* Contain floats: h5bp.com/q */ 
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+
+/* ==================================================================================================================== */
+/* ! The 1140px Grid V2 by Andy Taylor \ http://cssgrid.net \ http://www.twitter.com/andytlr \ http://www.andytlr.com   */
+/* ==================================================================================================================== */
+
+/*FONTS!*/
+
+@import url("font/stylesheet.css");
+
+.container {
+padding-left: 20px;
+padding-right: 20px;
+}
+
+.row {
+width: 100%;
+max-width: 1140px;
+min-width: 755px;
+margin: 0 auto;
+overflow: hidden;
+}
+
+.onecol, .twocol, .threecol, .fourcol, .fivecol, .sixcol, .sevencol, .eightcol, .ninecol, .tencol, .elevencol {
+margin-right: 3.8%;
+float: left;
+min-height: 1px;
+}
+
+.onecol {
+width: 4.85%;
+}
+.onepush {
+margin-left:8.65%;
+}
+
+.twocol {
+width: 13.45%;
+}
+.twopush {
+margin-left:17.25%;
+}
+
+.threecol {
+width: 22.05%;
+}
+.threepush {
+margin-left:25.85%;
+}
+
+.fourcol {
+width: 30.75%;
+}
+
+.fivecol {
+width: 39.45%;
+}
+
+.sixcol {
+width: 48%;
+}
+
+.sevencol {
+width: 56.75%;
+}
+
+.eightcol {
+width: 65.4%;
+}
+
+.ninecol {
+width: 74.05%;
+}
+
+.tencol {
+width: 82.7%;
+}
+
+.elevencol {
+width: 91.35%;
+}
+
+.twelvecol {
+width: 100%;
+float: left;
+}
+
+.last {
+margin-right: 0px;
+}
+
+img, object, embed {
+max-width: 100%;
+}
+
+img {
+	height: auto;
+}
+
+/* Smaller screens */
+@imgurl : "/static/img";
+#container, #map {
+	height:100%;
+}
+header {
+	position:absolute;
+	background:rgba(245,245,245,0.8);
+	box-shadow:0px 0px 5px #333;
+	-webkit-box-shadow:0px 0px 5px #333;
+	-moz-box-shadow:0px 0px 5px #333;
+	-ms-box-shadow:0px 0px 5px #333;
+	display:block;
+	overflow:hidden;
+	padding:20px;
+	
+	li {
+		margin:0;
+		list-style-type:none;
+		font-family:"League Gothic";
+		text-transform:uppercase;
+		font-size:1.5rem;
+		padding:5px;
+		float:left;
+		width:100%;
+		height:100%;
+		div {
+			float:left;
+			width:100%;
+			&:hover {
+				background:#C9C9C9;
+				cursor:pointer;
+			}
+		}
+		.menu-label {
+			.toggle {
+				float:right;
+				width:20%;
+				height:100%;
+				text-align:center;
+				background:#333;
+				input {
+				    width: auto;
+				    height: auto;
+				    padding: 0px;
+				    margin: 0px -50%;
+				    line-height: normal;
+				    cursor: pointer;
+				    background-color: transparent;
+				    border-radius: 0px 0px 0px 0px;
+				}
+			}
+			label {
+				float:left;
+				width:80%;
+			}
+		}
+		&.inactive {
+			color:#999;
+		}
+		ul {
+			display:none;
+		}
+	}
+	#close {
+		position:absolute;
+		bottom:0;
+		left:0;
+	}
+}
+
+
+@media only screen and (min-width: 768px) {
+	
+	header {
+		width:25%;
+		right:5%;
+		top:0;
+		bottom:20px;
+		z-index:2;
+	}
+	h1 {
+		position:relative;
+		height:30%;
+		max-height:163px;
+		max-width:320px;
+		background-image:url("@{imgurl}/logo.png");
+		background-position:top center;
+		background-size:contain;
+		background-repeat:no-repeat;
+		overflow:hidden;
+		text-indent:-999px;
+	}
+	#main-menu {
+		position:relative;
+		max-height:70%;
+		height:auto;
+		padding:0;
+		margin:0;
+		width:100%;
+		overflow-y:auto;
+		overflow-x:hidden;
+		ul {
+			float:left;
+			width:100%;
+			padding-bottom:50px;
+		}
+	}
+}
+
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+	header {
+		width:40%;
+		right:0;
+		top:0;
+		bottom:20px;
+		z-index:2;
+	}
+	h1 {
+		position:relative;
+		height:30%;
+		max-height:163px;
+		max-width:320px;
+		background-image:url("@{imgurl}/logo.png");
+		background-position:top center;
+		background-size:contain;
+		background-repeat:no-repeat;
+		overflow:hidden;
+		text-indent:-999px;
+	}
+	#main-menu {
+		position:relative;
+		max-height:70%;
+		height:auto;
+		padding:0;
+		margin:0;
+		width:100%;
+		overflow-y:auto;
+		overflow-x:hidden;
+		ul {
+			float:left;
+			width:100%;
+			padding-bottom:50px;
+		}
+	}
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+	header {
+		width:100%;
+		left:0;
+		right:0;
+		bottom:20px;
+		top:60%;
+		z-index:2;
+		h1 {
+			position:relative;
+			height:100%;
+			width:30%;
+			background-image:url("@{imgurl}/logo.png");
+			background-position:top center;
+			background-size:contain;
+			background-repeat:no-repeat;
+			overflow:hidden;
+			text-indent:-999px;
+			display:inline-block;
+			margin:0;
+			vertical-align:top;
+		}
+		#main-menu {
+			position:relative;
+			width:60%;
+			height:100%;
+			padding:0;
+			margin:0;
+			overflow-y:auto;
+			overflow-x:hidden;
+			display:inline-block;
+			ul {
+				float:left;
+				width:100%;
+				padding-bottom:50px;
+			}
+		}
+	}
+}
+
+
+
+.border-radius( @radius: 3px ) {
+	-webkit-border-radius: @radius;
+	   -moz-border-radius: @radius;
+	        border-radius: @radius;		
+}

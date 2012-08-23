@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load map_filters %}
+
+{% block htmlhead %}
+<link rel="stylesheet/less" href="{% get_static_prefix %}css/style.less">
+<script src="{% get_static_prefix %}js/less-1.1.5.min.js"></script>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.css" />
+<link rel="stylesheet" href="{% get_static_prefix %}css/MarkerCluster.css" />
+<link rel="stylesheet" href="{% get_static_prefix %}css/MarkerCluster.Default.css" />
+{% endblock %}
+
+{% block header %}
+  <h1>Represent SF</h1>
+  <nav id="main-menu">
+    <ul>
+      {% for type in types %}
+      <li class="active" id="{{type.name}}">
+        <div class="menu-label">
+          <label for="{{type.name}}">{{type.name|replace:"-, "|title}}</label>
+          <div class="toggle">
+            <input name="{{type.name}}" type="checkbox" checked />
+          </div>
+        </div>
+        {% if type.type_set.all %}
+          <ul>
+          {% for subtype in type.type_set.all %}
+            <li><div class="menu-label">
+              <label for="{{type.name}}">{{subtype.name|replace:"-, "|title}}</label>
+              <div class="toggle">
+                <input name="{{type.name}}" type="checkbox" checked />
+              </div>
+            </div></li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      </li><br />
+      {% endfor %}
+    </ul>
+  </nav>
+  <a id="close" href="#">close menu</a>
+{% endblock %}
+
+{% block main %}
+<div id="map" role="main">
+   
+</div>
+{% endblock %}
+
+{% block pre-plugins %}
+<script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
+<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.1.2"></script>
+<script type="text/javascript" src="{% get_static_prefix %}js/libs/leaflet.markercluster-src.js"></script>
+<script type="text/javascript">
+var locations = {{ locs_json|safe }};
+var types = {{ types_json|safe }};
+</script>
+{% endblock %}
