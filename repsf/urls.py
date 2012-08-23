@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-import setting
+import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
