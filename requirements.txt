@@ -1,0 +1,6 @@
+Django==1.4
+dj-database-url==0.2.1
+geopy==0.94.2
+psycopg2==2.4.5
+requests==0.13.8
+wsgiref==0.1.2
