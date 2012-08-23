@@ -60,15 +60,18 @@ $(function(){
 				default:
 					icon = startupIcon;
 			}
-			
-			if (typeof location.fields.type[1] != 'undefined') { 
-				layer = layerGroups[location.fields.type[0]]['sublayers'][location.fields.type[1]];
-			} else { 
-				layer = layerGroups[location.fields.type[0]];
+			if(typeof layerGroups[location.fields.type[0]] != 'undefined') {
+				if (typeof location.fields.type[1] != 'undefined') { 
+					layer = layerGroups[location.fields.type[0]]['sublayers'][location.fields.type[1]];
+				} else { 
+					layer = layerGroups[location.fields.type[0]];
+				}
+				layer['layer'].addLayer( L.marker( 	new L.LatLng(location.fields.lat, location.fields.lng), 
+													{icon: icon} 
+							).bindPopup(location.fields.desc).openPopup() );
+			} else {
+				console.log(location.fields.type[0]);
 			}
-			layer['layer'].addLayer( L.marker( 	new L.LatLng(location.fields.lat, location.fields.lng), 
-												{icon: icon} 
-						).bindPopup(location.fields.desc).openPopup() );
 		});
 		
 		
