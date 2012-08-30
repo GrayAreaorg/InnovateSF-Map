@@ -218,15 +218,13 @@ td { vertical-align: top; }
 
 
 
-
-
-
-
-
-
-
-
-
+html.ie7 h3.hover-title,
+html.ie8 h3.hover-title,
+html.ie9 h3.hover-title {
+    background-color: white;
+    filter: progid:DXImageTransform.Microsoft.Chroma(color='white') progid:DXImageTransform.Microsoft.Alpha(opacity=100) progid:DXImageTransform.Microsoft.dropshadow(color=#ffffff,offX=1,offY=1) progid:DXImageTransform.Microsoft.dropshadow(color=#ffffff,offX=-1,offY=1) progid:DXImageTransform.Microsoft.dropshadow(color=#ffffff,offX=1,offY=-1) progid:DXImageTransform.Microsoft.dropshadow(color=#ffffff,offX=-1,offY=-1);
+    zoom: 1;
+}
 
 
 /* ==|== media queries ======================================================

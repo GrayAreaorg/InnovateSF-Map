@@ -5,6 +5,7 @@ var map = L.map('map');
 var layer = new L.StamenTileLayer("toner-lite");
 var layerGroups = {};
 var myScroll;
+var hoverTitle;
 
 map.addLayer(layer);
 map.locate({setView: true, maxZoom: 16});
@@ -39,18 +40,26 @@ $(function(){
 	//Load markers from sample data
 		$.each(types, function(key, type) {
 			if(typeof layerGroups[type.name] == 'undefined') {
-				layerGroups[type.name] = {'layer' : new L.MarkerClusterGroup(), 'sublayers' : {} }
+				layerGroups[type.name] = {'layer' : new L.MarkerClusterGroup({maxClusterRadius: 100}), 'sublayers' : {} }
 			}
 			if(typeof type.subtypes != []) {
 				$.each(type.subtypes, function(key, subtype){
-					layerGroups[type.name]['sublayers'][subtype] = {'layer' : new L.MarkerClusterGroup()};
+					layerGroups[type.name]['sublayers'][subtype] = {'layer' : new L.MarkerClusterGroup({
+						maxClusterRadius:100,
+					    iconCreateFunction: function(cluster) {
+					        return new L.DivIcon({ html: '<b>' + cluster.getChildCount() + '</b>' });
+					    }
+					})};
 				});
 			}
 	    });
 		
 		$.each(locations, function(key, location){
 			var icon;
-			switch(location.fields.type[0]) {
+			location.fields.type = location.fields.type.sort(function(a, b){
+				return a[0]-b[0];
+			});
+			switch(location.fields.type[0][1]) {
 				case 'financial-organization':
 					icon = investorIcon;
 					break;
@@ -60,15 +69,30 @@ $(function(){
 				default:
 					icon = startupIcon;
 			}
-			if(typeof layerGroups[location.fields.type[0]] != 'undefined') {
+			if(typeof layerGroups[location.fields.type[0][1]] != 'undefined') {
 				if (typeof location.fields.type[1] != 'undefined') { 
-					layer = layerGroups[location.fields.type[0]]['sublayers'][location.fields.type[1]];
+					layer = layerGroups[location.fields.type[0][1]]['sublayers'][location.fields.type[1][1]];
 				} else { 
-					layer = layerGroups[location.fields.type[0]];
+					layer = layerGroups[location.fields.type[0][1]];
 				}
-				layer['layer'].addLayer( L.marker( 	new L.LatLng(location.fields.lat, location.fields.lng), 
-													{icon: icon} 
-							).bindPopup(location.fields.desc).openPopup() );
+				var popup = "<h1>"+location.fields.name+"</h1><div style='max-height:100px;overflow:auto'>"+location.fields.desc+"</div>";
+				layer['layer'].addLayer( 
+					L.marker( 	new L.LatLng(location.fields.lat, location.fields.lng), {icon: icon} ).bindPopup(popup)
+							.on('click', function(){
+								this.openPopup();
+								hoverTitle.remove();
+							})
+							.on('mouseover', function(){
+								x = $(this._icon).offset();
+								hoverTitle = $('<h3 class="hover-title">')	.appendTo('#map')
+														.css(	{	'position':'absolute',
+																	'left':x.left,
+																	'top':x.top-41})
+														.text(location.fields.name);
+							})
+							.on('mouseout', function(){
+								hoverTitle.remove();
+							}) );
 			} else {
 				console.log(location.fields.type[0]);
 			}
@@ -149,9 +173,11 @@ $(function(){
 	$("#close").toggle(
 		function(){
 			$("header").animate({ top: (-$("header").height()-20), bottom: ($(window).height()-20) });
+			$(this).html("open menu &darr;");
 		},
 		function(){
 			$("header").animate({ bottom: 20, top:0 });
+			$(this).html('hide menu &uarr;');
 		}
 	);
 });
