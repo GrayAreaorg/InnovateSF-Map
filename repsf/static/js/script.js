@@ -46,9 +46,6 @@ $(function(){
 				$.each(type.subtypes, function(key, subtype){
 					layerGroups[type.name]['sublayers'][subtype] = {'layer' : new L.MarkerClusterGroup({
 						maxClusterRadius:100,
-					    iconCreateFunction: function(cluster) {
-					        return new L.DivIcon({ html: '<b>' + cluster.getChildCount() + '</b>' });
-					    }
 					})};
 				});
 			}
