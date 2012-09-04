@@ -24,11 +24,7 @@ class Type(models.Model):
 		return self.name
 	
 	def natural_key(self):
-		try:
-			id = self.parent.id
-		except:
-			id = 0
-		return (id, self.name)
+		return self.name
 	
 	objects		= TypeManager()
 	
