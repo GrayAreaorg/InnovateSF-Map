@@ -6,7 +6,7 @@ var layer = new L.StamenTileLayer("toner-lite");
 var layerGroups = {};
 var myScroll;
 var hoverTitle;
-
+var layercache = [];
 map.addLayer(layer);
 map.locate({setView: true, maxZoom: 18});
 
@@ -84,8 +84,23 @@ $(function(){
 		});
 		
 		//Hide layers if user unchecks box. Refactor the fuck out of this.
-		$('.top>li>div input[type="checkbox"]').change(function() {
-			var parent_li = $(this).parent().parent().parent();
+		$('#main-menu input[type="checkbox"]').change(function() {
+			var name = $(this).attr('name');
+			var parent = $(this).data('parent');
+			if(typeof layercache[name] == 'undefined') {
+				layercache[name] = _.filter(locations, function(obj) { return _.include(obj.fields.type, name); });
+			}
+			if($(this).is('checked')) {
+				_.each(layercache[name], function(layer){ 
+						layerGroups[parent].removeLayer(layer.marker);
+				});
+			} else {
+				_.each(layercache[name], function(layer){ 
+						layerGroups[parent].addLayer(layer.marker);
+				});
+			}
+		});
+			/*var parent_li = $(this).parent().parent().parent();
 			var sub_lis = parent_li.find('ul>li');
 
 			if ($(this).is(':checked')) {
@@ -103,19 +118,7 @@ $(function(){
 					map.removeLayer(layerGroups[parent_li.attr('id')]['sublayers'][$(this).attr('id')]['layer']);
 				})
 			}
-		});
-		
-		$('.sub>li>div input[type="checkbox"]').change(function() {
-			var sub_parent_li = $(this).parent().parent().parent();
-			var parent_li = $(this).parent().parent().parent().parent().parent();
-			if ($(this).is(':checked')) {
-				sub_parent_li.removeClass('inactive');
-				map.addLayer(layerGroups[parent_li.attr('id')]['sublayers'][sub_parent_li.attr('id')]['layer']);
-			} else {
-				sub_parent_li.addClass('inactive');
-				map.removeLayer(layerGroups[parent_li.attr('id')]['sublayers'][sub_parent_li.attr('id')]['layer']);
-			}
-		});
+		});*/
 		
 		//Make the whole LI into a button (good for mobile!!)
 		$('header li div label').toggle(

@@ -30,7 +30,7 @@
           <div id="{{subtype.name}}-icon" class="icon">{{subtype.location_set.count}}</div>
           <label for="{{subtype.name}}">{{subtype.name|replace:"-, "|title}}</label>
           <div class="toggle">
-            <input name="{{subtype.name}}" type="checkbox" checked />
+            <input name="{{subtype.name}}" data-parent="{{type.name}}" type="checkbox" checked />
           </div>
         </li>
         {% endfor %}
