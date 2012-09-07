@@ -11,10 +11,9 @@ class Location(models.Model):
 	fix_address = models.BooleanField()
 	def __unicode__(self):
 		return self.name
-
-class TypeManager(models.Manager):
-    def get_query_set(self):
-        return super(TypeManager, self).get_query_set().order_by('parent__id').reverse()
+	
+	def get_types_for_admin(self):
+	  return "\n".join([t.name for t in self.type.all()])
 
 class Type(models.Model):
 	name		= models.CharField(max_length=256, null = True, blank = True)
@@ -29,6 +28,4 @@ class Type(models.Model):
 		except:
 			id = 0
 		return (id, self.name)
-	
-	objects		= TypeManager()
 	
