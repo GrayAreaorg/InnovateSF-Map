@@ -30,7 +30,7 @@
           <div id="{{subtype.name}}-icon" class="icon">{{subtype.location_set.count}}</div>
           <label for="{{subtype.name}}">{{subtype.name|replace:"-, "|title}}</label>
           <div class="toggle">
-            <input name="{{subtype.name}}" type="checkbox" checked />
+            <input name="{{subtype.name}}" data-parent="{{type.name}}" type="checkbox" checked />
           </div>
         </li>
         {% endfor %}
@@ -52,7 +52,7 @@
 {% block pre-plugins %}
 <script src="http://cdn.leafletjs.com/leaflet-0.4.2/leaflet.js"></script>
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.1.2"></script>
-<script type="text/javascript" src="{% get_static_prefix %}js/libs/leaflet.markercluster-src.js"></script>
+<script type="text/javascript" src="{% get_static_prefix %}js/libs/leaflet.markercluster.js"></script>
 <script type="text/javascript" src="{% get_static_prefix %}js/libs/underscore-min.js"></script>
 <script type="text/javascript">
 var locations = {{ locs_json|safe }};
