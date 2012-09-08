@@ -4,7 +4,7 @@ class Location(models.Model):
 	lat 		= models.DecimalField(max_digits=15, decimal_places=10, blank = True, null = True)
 	lng 		= models.DecimalField(max_digits=15, decimal_places=10, blank = True, null = True)
 	address		= models.TextField(blank=True, null=True)
-	name		= models.CharField(max_length = 256)
+	name		= models.CharField(max_length = 256, unique=True)
 	permalink	= models.URLField()
 	desc		= models.TextField(blank = True, null=True)
 	type		= models.ManyToManyField("Type")

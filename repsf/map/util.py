@@ -36,8 +36,12 @@ def build_db(city, range):
 			if result['offices']: #Is there an SF office?
 				print "Found %s office for %s" % (city, result['name'])
 				print result['offices'][0]
-                #office = result['offices'][0]
-                office = "blah"
+				print 'who does it break'
+				print 'who does it break'
+				print 'who does it break'
+				print 'who does it break'
+                office = result['offices'][0]
+
                 #search_address = "%s %s %s %s %s" % (office.get('address1',''), office.get('address2',''), office.get('city',''), office.get('state_code',''), office.get('zip_code','') )
                 search_address = "San Francisco"
                 print search_address
