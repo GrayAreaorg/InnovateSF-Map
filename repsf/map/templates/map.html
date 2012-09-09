@@ -17,8 +17,8 @@
     {% for type in types %}
     <li id="{{type.name}}">
       <div class="menu-label">
-        <div id="{{type.name}}-icon" class="icon"><span>{{type.location_set.count}}</span></div>
-        <label for="{{type.name}}">{{type.name|replace:"-, "|title}}</label>
+        <div id="{{type.name}}-icon" class="icon">&nbsp;</div>
+        <label for="{{type.name}}">{{type.name|replace:"-, "|title}} <span>({{type.location_set.count}})</span></label>
         <div class="toggle">
           <input name="{{type.name}}" type="checkbox" checked />
         </div>
@@ -27,8 +27,8 @@
       <ul class="sub">
         {% for subtype in type.type_set.all %}
         <li id="{{subtype.name}}"><div class="menu-label">
-          <div id="{{subtype.name}}-icon" class="icon"><span>{{subtype.location_set.count}}</span></div>
-          <label for="{{subtype.name}}">{{subtype.name|replace:"-, "|title}}</label>
+          <div id="{{subtype.name}}-icon" class="icon">&nbsp;</div>
+          <label for="{{subtype.name}}">{{subtype.name|replace:"-, "|title}} <span>({{subtype.location_set.count}})</span></label>
           <div class="toggle">
             <input name="{{subtype.name}}" data-parent="{{type.name}}" type="checkbox" checked />
           </div>

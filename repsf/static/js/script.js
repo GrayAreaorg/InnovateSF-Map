@@ -1,14 +1,14 @@
 /* Author: 
 
 */
-var map = L.map('map');
+var map = L.map('map',{maxZoom: 19});
 var layer = new L.StamenTileLayer("toner-lite");
-var layerGroups = {};
+var layerGroups = new L.MarkerClusterGroup({maxClusterRadius:80});
 var myScroll;
 var hoverTitle;
 var layercache = [];
 map.addLayer(layer);
-map.locate({setView: true, maxZoom: 18});
+map.locate({setView: true, maxZoom: 16});
 
 var customIcon = L.Icon.extend({
 	options: {
@@ -25,6 +25,34 @@ var startupIcon = new customIcon({iconUrl: '/static/img/company.png'});
 var investorIcon = new customIcon({iconUrl: '/static/img/financial-organization.png'});
 var serviceIcon = new customIcon({iconUrl: '/static/img/service-provider.png'});
 
+//REFACTOR THIS, YOU ALREADY HAVE THE PARENT NAME
+function get_type(location, higher) {
+  var i = -1;
+  var type_obj = {};
+  _.each(location.fields.type, function(obj){
+    x = _.values(obj)[0]
+    if(higher == true) { 
+      if (x > i) {
+        x = i;
+        type_obj = _.keys(obj)[0]; 
+      }
+    } else {
+      if (x == 0) {
+        type_obj = _.keys(obj)[0]; 
+      }
+    }
+  });
+  return _.find(types, function(obj){ return obj.fields.name == type_obj  });
+}
+
+function removeFromClusterGroup(type) {
+  _.each(type.layerGroup._layers, function(obj){ layerGroups.removeLayer(obj) })
+}
+
+function addToClusterGroup(type) {
+  _.each(type.layerGroup._layers, function(obj){ layerGroups.addLayer(obj) })
+}
+
 function iscroll_init(options) {
 	if(typeof options == 'undefined') { return false; }	
 	if(options.action == 'init') {
@@ -37,88 +65,75 @@ function iscroll_init(options) {
 }
 
 $(function(){
-	_.each(types, function(obj){
-		layerGroups[obj.name] = new L.MarkerClusterGroup({maxClusterRadius:100});
-	});
-	//Load markers from sample data
-	_.each(locations, function(location){
-		var icon;
-		switch(_.intersection(location.fields.type, _.keys(layerGroups))[0]) {
-			case 'financial-organization':
-				icon = investorIcon;
-				break;
-			case 'service-provider':
-				icon = serviceIcon;
-				break;
-			default:
-				icon = startupIcon;
-		}
-		var popup = "<h1>"+location.fields.name+"</h1><div style='max-height:100px;overflow:auto'>"+location.fields.desc+"</div>";
-		var marker = L.marker( 	new L.LatLng(location.fields.lat, location.fields.lng), {icon: icon} ).bindPopup(popup)
-				.on('click', function(){
-					this.openPopup();
-					hoverTitle.remove();
-				})
-				.on('mouseover', function(){
-					x = $(this._icon).offset();
-					hoverTitle = $('<h3 class="hover-title">')	.appendTo('#map')
-											.css(	{	'position':'absolute',
-														'left':x.left,
-														'top':x.top-41})
-											.text(location.fields.name);
-				})
-				.on('mouseout', function(){
-					hoverTitle.remove();
-				});
-		location['marker'] = marker;
-		});
-		
-		_.each(locations, function(obj){
-			_.each(_.intersection(obj.fields.type, _.keys(layerGroups) ), function(name){
-				layerGroups[name].addLayer(obj.marker);
-			});
-		});
-		
-		_.each(layerGroups, function(obj){
-			obj.addTo(map);
-		});
-		
-		//Hide layers if user unchecks box. Refactor the fuck out of this.
-		$('#main-menu input[type="checkbox"]').change(function() {
-			var name = $(this).attr('name');
-			var parent = $(this).data('parent');
-			if(typeof layercache[name] == 'undefined') {
-				layercache[name] = _.filter(locations, function(obj) { return _.include(obj.fields.type, name); });
-			}
-			if($(this).is('checked')) {
-				_.each(layercache[name], function(layer){ 
-						layerGroups[parent].removeLayer(layer.marker);
-				});
-			} else {
-				_.each(layercache[name], function(layer){ 
-						layerGroups[parent].addLayer(layer.marker);
-				});
-			}
-		});
-			/*var parent_li = $(this).parent().parent().parent();
-			var sub_lis = parent_li.find('ul>li');
+  _.each(types, function(obj){
+    obj['layerGroup'] = new L.LayerGroup();
+    button = $("#main-menu li input[name="+obj.fields.name+"]");
+    sub = button.parent().parent().parent().find('ul li');
+    button.data('type',obj).data('sub',sub);
+    button.change(
+      function(){
+        sub = $(this).data('sub')
+        if($(this).is(':checked')) {
+          addToClusterGroup($(this).data('type'));
+          if(sub.length) {
+            sub.each( function(){
+              $(this).find('input[type=checkbox]').attr('checked', true).change();
+            });
+          }
+        } else {
+          removeFromClusterGroup($(this).data('type'));
+          if(sub.length) {
+            sub.each( function(){
+              $(this).find('input[type=checkbox]').attr('checked', false).change();
+            });
+          }
+        }
+      }
+    );
+  })
 
-			if ($(this).is(':checked')) {
-				parent_li.removeClass('inactive');
-				map.addLayer(layerGroups[parent_li.attr('id')]['layer']);
-				sub_lis.each(function(i, el) {
-					$(this).removeClass('inactive').find('input[type="checkbox"]').attr('checked',true);
-					map.addLayer(layerGroups[parent_li.attr('id')]['sublayers'][$(this).attr('id')]['layer']);
-				})
-			} else {
-				parent_li.addClass('inactive');
-				map.removeLayer(layerGroups[parent_li.attr('id')]['layer']);
-				sub_lis.each(function() {
-					$(this).addClass('inactive').find('input[type="checkbox"]').attr('checked',false);;
-					map.removeLayer(layerGroups[parent_li.attr('id')]['sublayers'][$(this).attr('id')]['layer']);
-				})
-			}
-		});*/
+  _.each(locations, function(location){
+  	var icon;
+  	switch(get_type(location, false).fields.name) {
+  		case 'financial-organization':
+  			icon = investorIcon;
+  			break;
+  		case 'service-provider':
+  			icon = serviceIcon;
+  			break;
+  		default:
+  			icon = startupIcon;
+  	}
+  	var popup = "<h1>"+location.fields.name+"</h1><div style='max-height:100px;overflow:auto'>"+location.fields.desc+"</div>";
+  	var marker = L.marker( 	new L.LatLng(location.fields.lat, location.fields.lng), {icon: icon} ).bindPopup(popup)
+  			.on('click', function(){
+  				this.openPopup();
+  				hoverTitle.remove();
+  			})
+  			.on('mouseover', function(){
+  				x = $(this._icon).offset();
+  				hoverTitle = $('<h3 class="hover-title">')	.appendTo('#map')
+  										.css(	{	'position':'absolute',
+  													'left':x.left,
+  													'top':x.top-41})
+  										.text(location.fields.name);
+  			})
+  			.on('mouseout', function(){
+  				hoverTitle.remove();
+  			});
+  	location['marker'] = marker;
+  	get_type(location, true).layerGroup.addLayer(location.marker);
+  });
+
+    _.each(types, function(type) {
+      try {
+        layerGroups.addLayer(type.layerGroup);
+      } catch(error) {
+        console.log(error);
+      }
+    })
+  
+	  layerGroups.addTo(map);
 		
 		//Make the whole LI into a button (good for mobile!!)
 		$('header li div label').toggle(
@@ -131,15 +146,6 @@ $(function(){
 				li.find('ul').slideUp();
 			}
 		);
-		//SHOW ALL THE THINGS!
-		$.each(layerGroups, function(key, value){
-			map.addLayer(value['layer']);
-			if(value['sublayers'] != {}) {
-				$.each(value['sublayers'], function(key, value) {
-					map.addLayer(value['layer']);
-				});
-			}
-		});
 		
 		//We're all done here, refresh scrolling
 		//REFACTOR

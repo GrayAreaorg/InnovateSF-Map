@@ -27,5 +27,5 @@ class Type(models.Model):
 			id = self.parent.id
 		except:
 			id = 0
-		return (id, self.name)
+		return { self.name:id }
 	
