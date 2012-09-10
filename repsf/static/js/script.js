@@ -6,7 +6,7 @@ var layer = new L.StamenTileLayer("toner-lite");
 var layerGroups = new L.MarkerClusterGroup({maxClusterRadius:80});
 var myScroll;
 var hoverTitle;
-var layercache = [];
+var companyNames = [];
 map.addLayer(layer);
 map.locate({setView: true, maxZoom: 16});
 
@@ -43,6 +43,12 @@ function get_type(location, higher) {
     }
   });
   return _.find(types, function(obj){ return obj.fields.name == type_obj  });
+}
+
+function focusMapAndPopup(name) {
+  m = _.find(locations, function(loc){return loc.fields.name == name}).marker;
+  map.panTo(m.latlng);
+  m.openPopup();
 }
 
 function removeFromClusterGroup(type) {
@@ -173,6 +179,9 @@ $(function(){
 			$(this).html('hide menu &uarr;');
 		}
 	);
+	_.each(locations, function(obj){ companyNames[companyNames.length] = obj.fields.name;  });
+	$("#search_field").autocomplete(companyNames);
+	$("#search_form").submit(function(e){e.preventDefault; focusMapAndPopup($('#search').val()); });
 });
 
 /* fullscreen crap */

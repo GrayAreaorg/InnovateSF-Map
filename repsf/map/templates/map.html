@@ -6,6 +6,7 @@
 <link rel="stylesheet/less" href="{% get_static_prefix %}css/style.less">
 <script src="{% get_static_prefix %}js/less-1.1.5.min.js"></script>
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.2/leaflet.css" />
+<link rel="stylesheet" href="{% get_static_prefix %}css/jquery.autocomplete.css" />
 <link rel="stylesheet" href="{% get_static_prefix %}css/MarkerCluster.css" />
 <link rel="stylesheet" href="{% get_static_prefix %}css/MarkerCluster.Default.css" />
 {% endblock %}
@@ -13,6 +14,9 @@
 {% block header %}
 <h1>Represent SF</h1>
 <nav id="main-menu">
+  <form id="search_form" method="GET" action="">
+    <input id="search_field" name="q" type="search" autocomplete="off" placeholder="Search on the map..." />
+  </form>
   <ul class="top">
     {% for type in types %}
     <li id="{{type.name}}">
@@ -54,6 +58,7 @@
 <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.1.2"></script>
 <script type="text/javascript" src="{% get_static_prefix %}js/libs/leaflet.markercluster.js"></script>
 <script type="text/javascript" src="{% get_static_prefix %}js/libs/underscore-min.js"></script>
+<script src="{% get_static_prefix %}js/jquery.autocomplete.min.js"></script>
 <script type="text/javascript">
 var locations = {{ locs_json|safe }};
 var types = {{ types_json|safe }};

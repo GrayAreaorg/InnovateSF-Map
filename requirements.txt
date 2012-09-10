@@ -1,6 +1,8 @@
 Django==1.4
 dj-database-url==0.2.1
+-e git://github.com/wellnesstelecom/django-livejs.git@43752cbc518cd8081a5803720ec4cf104a973b72#egg=django_livejs-dev
 geopy==0.94.2
 psycopg2==2.4.5
 requests==0.13.8
+unicodecsv==0.9.0
 wsgiref==0.1.2

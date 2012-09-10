@@ -111,6 +111,15 @@ header {
 	overflow:hidden;
 	padding:20px;
 	#main-menu {
+	    #search_form {
+	        width:100%;
+	        #search_field {
+	            width:100%;
+	            &:focus {
+    	            outline:none;
+    	        }
+            }
+	    }
 	    li {
     		list-style-type:none;
     		font-family:"League Gothic";
@@ -208,6 +217,9 @@ header {
 	    1px -1px 0 #ffffff,
 	    -1px 1px 0 #ffffff,
 	    1px 1px 0 #ffffff;
+	}
+	.leaflet-control-attribution {
+	    height:50px;
 	}
 }
 
