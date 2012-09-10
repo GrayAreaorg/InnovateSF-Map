@@ -3,12 +3,12 @@
 */
 var map = L.map('map',{maxZoom: 19});
 var layer = new L.StamenTileLayer("toner-lite");
-var layerGroups = new L.MarkerClusterGroup({maxClusterRadius:80});
+var layerGroups = new L.MarkerClusterGroup({maxClusterRadius:50});
 var myScroll;
 var hoverTitle;
 var companyNames = [];
-map.addLayer(layer);
-map.locate({setView: true, maxZoom: 16});
+map.addLayer(layer).setView(new L.LatLng(37.7810841,-122.4105332), 15);
+//map.locate({setView: true, maxZoom: 16});
 
 var customIcon = L.Icon.extend({
 	options: {
@@ -216,6 +216,12 @@ $(function(){
 	_.each(locations, function(obj){ companyNames[companyNames.length] = obj.fields.name;  });
 	$("#search_field").autocomplete(companyNames).result(function(){ focusMapAndPopup($(this).val()); });
 	$("#search_form").submit(function(event){event.preventDefault(); focusMapAndPopup($('#search_field').val()); });
+	
+	//and finally,
+	
+	if(mapFocus != "") {
+		focusMapAndPopup(mapFocus);
+	}
 });
 
 /* fullscreen crap */

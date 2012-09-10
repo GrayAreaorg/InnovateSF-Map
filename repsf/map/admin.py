@@ -9,4 +9,7 @@ class LocationAdmin(admin.ModelAdmin):
 	
 admin.site.register(Location, LocationAdmin)
 
-admin.site.register(Type)
+class TypeAdmin(admin.ModelAdmin):
+	list_display = ['name', 'label']
+
+admin.site.register(Type, TypeAdmin)

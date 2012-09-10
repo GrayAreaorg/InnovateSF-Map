@@ -1,4 +1,6 @@
 from django.conf.urls import patterns, include, url
+from emailusernames.forms import EmailAuthenticationForm
+from accounts import views
 import settings
 
 # Uncomment the next two lines to enable the admin:
@@ -7,7 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'repsf.map.views.home', name='home'),
+	url(r'^(?P<location>\w+)/?$', 'repsf.map.views.home', name='spec_loc'),
     # url(r'^repsf/', include('repsf.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -15,6 +17,11 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+	url(r'^accounts/login/?$', 'django.contrib.auth.views.login', {'template_name':'login.html', 'authentication_form': EmailAuthenticationForm}, name='login'),
+	url(r'^accounts/create/?$', 'repsf.accounts.views.create', name='register'),
+	url(r'^accounts/profile/?$', 'repsf.accounts.views.read', name='show_user'),
+	url(r'^accounts/logout/?$', 'repsf.accounts.views.end_session', name='logout'),
+	url(r'^$', 'repsf.map.views.home', name='home'),
 )
 
 urlpatterns += patterns('',

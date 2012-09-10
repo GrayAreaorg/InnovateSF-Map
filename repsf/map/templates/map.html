@@ -84,7 +84,7 @@
 <a id="close" href="#">hide menu &uarr;</a>
 {% endblock %}
 
-{% block main %}
+{% block content %}
 <div id="map" role="main">
 
 </div>
@@ -117,5 +117,6 @@
 <script type="text/javascript">
 var locations = {{ locs_json|safe }};
 var types = {{ types_json|safe }};
+var mapFocus = "{{ focus }}";
 </script>
 {% endblock %}
