@@ -1,6 +1,7 @@
 Django==1.4
 South==0.7.6
 dj-database-url==0.2.1
+django-email-as-username==1.5.1
 -e git://github.com/wellnesstelecom/django-livejs.git@43752cbc518cd8081a5803720ec4cf104a973b72#egg=django_livejs-dev
 geopy==0.94.2
 psycopg2==2.4.5
