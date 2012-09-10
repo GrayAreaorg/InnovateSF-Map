@@ -96,13 +96,33 @@ img {
 }
 
 /* Smaller screens */
-@imgurl : "/static/img";
-#container, #map {
+
+//Colors
+@black : #141321;
+@darkgrey : #242424;
+@lightgrey : #c8cac8;
+@grey : #484948;
+@blue : #5296b2;
+@yellow: #f7f312;
+@white : whiteSmoke;
+@purple : #2a2947;
+
+.transbg (@color, @alpha) {
+  background-color:hsla(hue(@color),saturation(@color),lightness(@color),@alpha);
+}
+
+
+#container {
+	height:100%;
+}
+#map {
+	top:0;
+	bottom:60px;
 	height:100%;
 }
 header {
 	position:absolute;
-	background:rgba(102, 102, 102, 0.8);
+	.transbg(@black,80%);
 	box-shadow:0px 0px 5px #333;
 	-webkit-box-shadow:0px 0px 5px #333;
 	-moz-box-shadow:0px 0px 5px #333;
@@ -127,16 +147,17 @@ header {
     		font-size:1.2rem;
     		padding:0;
     		margin:0 0 0 0;
-    		border-bottom:1px #555 solid;
+    		border-bottom:1px @grey solid;
     		float:left;
     		width:100%;
     		height:100%;
-    		background:#333;
+    		background:@darkgrey;
     		div.menu-label {
     			float:left;
     			width:100%;
+				color:@white;
     			&:hover {
-    				background:#C9C9C9;
+    				color:@yellow;
     				cursor:pointer;
     			}
     			.icon {
@@ -165,7 +186,6 @@ header {
     			label {
     				.eightcol;
     				float:left;
-    				color:#777;
     			}
     			.toggle {
     				.twocol;
@@ -173,7 +193,7 @@ header {
     				float:right;
     				height:100%;
     				text-align:center;
-    				background:#333;
+    				background:@darkgrey;
     				input {
     				    width: auto;
     				    height: auto;
@@ -192,17 +212,17 @@ header {
     		ul {
     			display:none;
     			&.sub>li {
-    			    background:#555;
-    			    border-bottom:1px solid #444;
+    			    background:@darkgrey;
+    			    border-bottom:1px solid @grey;
     		    }
     		    &.locations>li {
-    			    background:whiteSmoke;
-    			    border-botom:1px solid #999;
+    			    background:@white;
+    			    border-bottom:1px solid @lightgrey;
     			    a {
     			        color:#333;
     			        text-decoration:none;
     			        &:hover {
-        			        color:red;
+        			        color:@blue;
         			    }
     			    }
     		    }
@@ -232,13 +252,75 @@ header {
 	}
 }
 
+footer {
+	position:absolute;
+	width:100%;
+	bottom:0;
+	height:55px;
+	background:@black;
+	.leaflet-control-attribution {
+		a {
+			color:@blue;
+		}
+	}
+	.cityseal, .gaffta-small, .golightly, .sfciti{
+		background: url(../img/sprites.png) no-repeat;
+		display:inline-block;
+		float:left;
+		text-indent:-100%;
+		opacity:0.2;
+		margin-right:10px;
+		vertical-align:middle;
+		&:hover{
+			opacity:1.0;
+		}
+	}
+	.cityseal{
+		background-position: -269px 0;
+		width: 56px;
+		height: 55px;
+	}
+
+	.gaffta-small{
+		margin-top:7px;
+		background-position: 0 0;
+		width: 128px;
+		height: 41px;
+	}
+
+	.golightly{
+		background-position: -328px 0;
+		width: 114px;
+		height: 51px;
+	}
+
+	.sfciti{
+		background-position: -130px 0;
+		width: 136px;
+		margin-top:12px;
+		height: 31px;
+	}
+}
+#mailchimp {
+	display:none;
+	position:absolute;
+	top:50%;
+	margin-top:-75px;
+	.sixcol;
+	.threepush;
+	height:150px;
+	box-shadow:0px 0px 5px @darkgrey;
+	.border-radius(10px);
+	background:white;
+	z-index:999;
+}
 @media only screen and (min-width: 768px) {
 	
 header {
 	width:25%;
 	right:5%;
 	top:0;
-	bottom:20px;
+	bottom:80px;
 	z-index:2;
 	h1 {
 		position:relative;
@@ -281,7 +363,7 @@ header {
 		height:30%;
 		max-height:163px;
 		max-width:320px;
-		background-image:url("@{imgurl}/logo.png");
+		background-image:url("../img/logo.png");
 		background-position:top center;
 		background-size:contain;
 		background-repeat:no-repeat;
@@ -318,7 +400,7 @@ header {
 			position:relative;
 			height:100%;
 			width:30%;
-			background-image:url("@{imgurl}/logo.png");
+			background-image:url("../img/logo.png");
 			background-position:top center;
 			background-size:contain;
 			background-repeat:no-repeat;
@@ -345,8 +427,6 @@ header {
 		}
 	}
 }
-
-
 
 .border-radius( @radius: 3px ) {
 	-webkit-border-radius: @radius;

@@ -1,0 +1,28 @@
+.cityseal, .gaffta-small, .golightly, .sfciti{
+	background: url(sprites.png) no-repeat;
+}
+
+.cityseal{
+	background-position: -130px 0;
+	width: 55px;
+	height: 55px;
+}
+
+.gaffta-small{
+	background-position: 0 0;
+	width: 128px;
+	height: 41px;
+}
+
+.golightly{
+	background-position: -187px 0;
+	width: 114px;
+	height: 51px;
+}
+
+.sfciti{
+	background-position: -302px 0;
+	width: 136px;
+	height: 31px;
+}
+

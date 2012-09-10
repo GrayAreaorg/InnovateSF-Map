@@ -3,7 +3,7 @@
 */
 var map = L.map('map',{maxZoom: 19});
 var layer = new L.StamenTileLayer("toner-lite");
-var layerGroups = new L.MarkerClusterGroup({maxClusterRadius:50});
+var layerGroups = new L.MarkerClusterGroup({maxClusterRadius:50, showCoverageOnHover: false});
 var myScroll;
 var hoverTitle;
 var companyNames = [];
@@ -217,8 +217,15 @@ $(function(){
 	$("#search_field").autocomplete(companyNames).result(function(){ focusMapAndPopup($(this).val()); });
 	$("#search_form").submit(function(event){event.preventDefault(); focusMapAndPopup($('#search_field').val()); });
 	
-	//and finally,
+	$("#mailchimp_link").click(
+		function(event){
+			event.preventDefault();
+			$("#mailchimp_close").bind('click', function(event){ event.preventDefault(); $(this).parent().parent().fadeOut('fast'); });
+			$('#mailchimp').fadeIn('fast');
+		}
+	)
 	
+	//and finally,
 	if(mapFocus != "") {
 		focusMapAndPopup(mapFocus);
 	}

@@ -4,6 +4,7 @@ from repsf.map.models import *
 from repsf.map.util import *
 from django.core import serializers
 import json
+from repsf.map.forms import *
 
 def home(request, location=None):
 	json_serializer = serializers.get_serializer("json")()
@@ -16,3 +17,8 @@ def home(request, location=None):
 		focus = None 
 	
 	return render_to_response('map.html', {"types" : types, "locs_json" : locs, "types_json" : types_json, "focus" : focus }, context_instance=RequestContext(request) )
+	
+def update(request):
+	if request.GET:
+		form = LocationForm()
+		return render_to_response('form.html', {"form" : form})
