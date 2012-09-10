@@ -80,7 +80,7 @@ $(function(){
       function(){
         sub = $(this).data('sub')
         if($(this).is(':checked')) {
-          addToClusterGroup($(this).data('type'));
+          layerGroups.addLayer($(this).data('type').layerGroup);
           if(sub.length) {
             sub.each( function(){
               $(this).find('input[type=checkbox]').attr('checked', true).change();

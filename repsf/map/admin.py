@@ -8,3 +8,5 @@ class LocationAdmin(admin.ModelAdmin):
 	actions = [export_as_csv_action("CSV Export", fields=['name','address','get_types_for_admin','fix_address'])]
 	
 admin.site.register(Location, LocationAdmin)
+
+admin.site.register(Type)
