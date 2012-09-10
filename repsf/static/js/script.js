@@ -45,10 +45,38 @@ function get_type(location, higher) {
   return _.find(types, function(obj){ return obj.fields.name == type_obj  });
 }
 
+function getMarker(name) {
+	return _.find(locations, function(loc){return loc.fields.name == name}).marker;
+}
+
 function focusMapAndPopup(name) {
-  m = _.find(locations, function(loc){return loc.fields.name == name}).marker;
-  map.panTo(m._latlng).setZoom(19);
-  window.setTimeout('m.openPopup()', 500);
+	var foundOne;
+	var m = getMarker(name);
+  map.panTo(m._latlng);
+	layerGroups._topClusterLevel._recursively(map.getBounds(), 0, map.getMaxZoom()+2, function(c) {
+		if (foundOne) {
+			return;
+		}
+		for (var i = c._markers.length; i >= 0; i--) {
+			if (c._markers[i] === m) {
+				foundOne = c;
+				return;
+			}
+		}
+	});
+	//foundOne.zoomToBounds();
+	window.setTimeout(function() {
+	    if (m._icon) {
+					map.panTo(m._latlng);
+	        m.openPopup();
+	    } else {
+	        foundOne.spiderfy();
+	        window.setTimeout(function() {
+							map.panTo(m._latlng);
+							m.openPopup();
+	         }, 250)
+	    }
+	}, 250);
 }
 
 function removeFromClusterGroup(type) {

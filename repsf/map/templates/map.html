@@ -23,7 +23,14 @@
     <li class="{{type.name}}">
       <div class="menu-label">
         <div id="{{type.name}}-icon" class="icon">&nbsp;</div>
-        <label for="{{type.name}}">{{type.name|replace:"-, "|title}} <span>({{type.location_set.count}})</span></label>
+        <label for="{{type.name}}">
+        {% if type.label  %}
+          {{type.label}}
+        {% else %}
+          {{type.name|replace:"-, "|title}} 
+        {% endif %}  
+          <span>({{type.location_set.count}})</span>
+        </label>
         <div class="toggle">
           <input name="{{type.name}}" type="checkbox" checked />
         </div>
@@ -42,12 +49,21 @@
       {% if type.type_set.all %}
       <ul class="sub">
         {% for subtype in type.type_set.all %}
-        <li class="{{subtype.name}}"><div class="menu-label">
-          <div id="{{subtype.name}}-icon" class="icon">&nbsp;</div>
-          <label for="{{subtype.name}}">{{subtype.name|replace:"-, "|title}} <span>({{subtype.location_set.count}})</span></label>
-          <div class="toggle">
-            <input name="{{subtype.name}}" data-parent="{{type.name}}" type="checkbox" checked />
-          </div></div>
+        <li class="{{subtype.name}}">
+          <div class="menu-label">
+            <div id="{{subtype.name}}-icon" class="icon">&nbsp;</div>
+            <label for="{{subtype.name}}">
+            {% if subtype.label  %}
+              {{subtype.label}}
+            {% else %}
+              {{subtype.name|replace:"-, "|title}} 
+            {% endif %}
+              <span>({{subtype.location_set.count}})</span>
+            </label>
+            <div class="toggle">
+              <input name="{{subtype.name}}" data-parent="{{type.name}}" type="checkbox" checked />
+            </div>
+          </div>
           {% if subtype.location_set.count %}
           <ul class="locations">
             {% for location in subtype.location_set.all %}

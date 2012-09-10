@@ -6,7 +6,7 @@ class Location(models.Model):
 	lng 		= models.DecimalField(max_digits=15, decimal_places=10, blank = True, null = True)
 	address		= models.TextField(blank=True, null=True)
 	name		= models.CharField(max_length = 256, unique=True)
-	permalink	= models.URLField(blank=True, null=True)
+	permalink	= models.CharField(max_length = 256, blank=True, null=True)
 	desc		= models.TextField(blank = True, null=True)
 	type		= models.ManyToManyField("Type")
 	hiring      = models.BooleanField()
@@ -38,6 +38,7 @@ class Location(models.Model):
 
 class Type(models.Model):
 	name		= models.CharField(max_length=256, null = True, blank = True)
+	label		= models.CharField(max_length=256, null=True, blank=True)
 	parent 		= models.ForeignKey('self', null=True, blank=True)
 	
 	def __unicode__(self):
