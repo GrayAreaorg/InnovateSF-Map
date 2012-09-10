@@ -120,7 +120,3 @@ class Command(BaseCommand):
                     l.type.add(type)
                 time.sleep(1)
         print "\a \a \a winner winner chicken dinner"
-                    
-            
-            
-        

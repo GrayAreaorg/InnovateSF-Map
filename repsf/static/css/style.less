@@ -130,11 +130,38 @@ header {
 	display:block;
 	overflow:hidden;
 	padding:20px;
+	#branding {
+		position:absolute;
+		top:0;
+		bottom:300px;
+		h1 {
+			height:80px;
+			width:auto;
+			position:relative;
+			background-size:contain;
+			background-image:url("../img/logo.png");
+			background-position:top center;
+			background-repeat:no-repeat;
+			overflow:hidden;
+			text-indent:-100%;
+			margin:0;
+			padding:0;
+		}
+		p {
+			color:@white;
+			font-size:.85em;
+		}
+		#buttons {
+			text-align:center;
+		}
+	}
 	#main-menu {
 	    #search_form {
 	        width:100%;
 	        #search_field {
+				font-size:1.2em;
 	            width:100%;
+				height:40px;
 	            &:focus {
     	            outline:none;
     	        }
@@ -145,17 +172,17 @@ header {
     		font-family:"League Gothic";
     		text-transform:uppercase;
     		font-size:1.2rem;
-    		padding:0;
     		margin:0 0 0 0;
     		border-bottom:1px @grey solid;
     		float:left;
     		width:100%;
-    		height:100%;
-    		background:@darkgrey;
     		div.menu-label {
+				background:@darkgrey;
+				padding:10px 0px;
     			float:left;
     			width:100%;
 				color:@white;
+				vertical-align:middle;
     			&:hover {
     				color:@yellow;
     				cursor:pointer;
@@ -211,9 +238,9 @@ header {
     		}
     		ul {
     			display:none;
-    			&.sub>li {
-    			    background:@darkgrey;
-    			    border-bottom:1px solid @grey;
+    			&.sub>li div.menu-label {
+    			    background:@grey;
+    			    border-bottom:1px solid @lightgrey;
     		    }
     		    &.locations>li {
     			    background:@white;
@@ -235,9 +262,8 @@ header {
 		left:0;
 		text-decoration:none;
 		padding:2px;
-		color:#333;
 		&:hover {
-			color:blue;
+			color:@blue;
 		}
 	}
 }
@@ -250,6 +276,9 @@ header {
 	    -1px 1px 0 #ffffff,
 	    1px 1px 0 #ffffff;
 	}
+	.leaflet-bottom {
+		bottom:58px;
+	}
 }
 
 footer {
@@ -257,7 +286,7 @@ footer {
 	width:100%;
 	bottom:0;
 	height:55px;
-	background:@black;
+	background:@darkgrey;
 	.leaflet-control-attribution {
 		a {
 			color:@blue;
@@ -300,8 +329,13 @@ footer {
 		margin-top:12px;
 		height: 31px;
 	}
+	#mailchimp_link {
+		display:inline-block;
+		margin-top:15px;
+		vertical-align:top;
+	}
 }
-#mailchimp {
+#mailchimp, #about {
 	display:none;
 	position:absolute;
 	top:50%;
@@ -322,21 +356,9 @@ header {
 	top:0;
 	bottom:80px;
 	z-index:2;
-	h1 {
-		position:relative;
-		height:30%;
-		max-height:163px;
-		max-width:320px;
-		background-image:url("../img/logo.png");
-		background-position:top center;
-		background-size:contain;
-		background-repeat:no-repeat;
-		overflow:hidden;
-		text-indent:-999px;
-	}
 	#main-menu {
 		position:absolute;
-		top:35%;
+		top:200px;
 		bottom:20px;
 		height:auto;
 		padding:0;
@@ -458,3 +480,25 @@ header {
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
+
+/* stolen from Zurb */
+
+.awesome, .awesome:visited {
+	background: #222 url(alert-overlay.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer;
+	height:15px;
+}
+.awesome:hover							{ background-color: #111; color: #fff; }
+.awesome:active							{ top: 1px; }
+.small.awesome, .small.awesome:visited 			{ font-size: 11px; padding: ; }

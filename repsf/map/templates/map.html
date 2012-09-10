@@ -13,7 +13,14 @@
 {% endblock %}
 
 {% block header %}
-<h1>Represent SF</h1>
+<div id="branding">
+  <h1>Represent SF</h1>
+  <p id="header_about">This map is a platform to show how much funding is coming in to SF startups, where jobs are and much much more. Add your company details and be a part of the story of San Francisco as the best place to live, work and play.</p>
+  <div id="buttons">
+    <a href="#" class="awesome">Learn More</a>
+    <a href="#" class="awesome">Add Something</a>
+  </div>
+</div>
 <nav id="main-menu">
   <form id="search_form" method="GET" action="">
     <input id="search_field" name="q" type="search" autocomplete="off" placeholder="Search on the map..." />
@@ -81,7 +88,7 @@
     {% endfor %}
   </ul>
 </nav>
-<a id="close" href="#">hide menu &uarr;</a>
+<a id="close" class="awesome small" href="#">hide menu &uarr;</a>
 {% endblock %}
 
 {% block content %}
@@ -97,6 +104,12 @@
   	<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
   </form>
   </div>
+</div>
+
+<div id="about">
+  <p>October 2012 in San Francisco is Innovation Month, a celebration campaign to spotlight the organizations and entrepreneurs that make up today’s generation of innovators.</p>
+
+  <p>More than any other city, San Francisco is uniquely poised to innovate and invent the future right here, right now, by capitalizing on our greatest resource – our people.</p>
 </div>
 {% endblock %}
 
@@ -116,7 +129,7 @@
 <a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="innovatesf" style="margin-top:16px;">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-<a href="#" id="mailchimp_link">Subscribe to our mailing list</a>
+<a href="#" id="mailchimp_link" class="awesome small">Subscribe to our mailing list</a>
 {% endblock %}
 
 {% block pre-plugins %}

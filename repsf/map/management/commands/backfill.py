@@ -17,3 +17,6 @@ class Command(NoArgsCommand):
 				j = json.loads(r)
 			except:
 				print "Something went wrong, logo couldn't be loaded! \n"
+				continue
+			
+			
