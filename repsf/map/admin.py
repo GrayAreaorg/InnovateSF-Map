@@ -1,5 +1,5 @@
 from django.contrib import admin
-from repsf.map.models import Location
+from repsf.map.models import *
 from django.http import HttpResponse, HttpResponseForbidden
 from actions import export_as_csv_action
 

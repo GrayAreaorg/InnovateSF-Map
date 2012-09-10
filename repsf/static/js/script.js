@@ -179,6 +179,12 @@ $(function(){
 			$(this).html('hide menu &uarr;');
 		}
 	);
+	
+	$("#main-menu a").click(function(event){
+	  event.preventDefault();
+	  focusMapAndPopup($(this).attr('href').substring(1));
+	})
+	
 	_.each(locations, function(obj){ companyNames[companyNames.length] = obj.fields.name;  });
 	$("#search_field").autocomplete(companyNames).result(function(){ focusMapAndPopup($(this).val()); });
 	$("#search_form").submit(function(event){event.preventDefault(); focusMapAndPopup($('#search_field').val()); });
