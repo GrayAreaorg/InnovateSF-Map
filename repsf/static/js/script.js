@@ -47,8 +47,8 @@ function get_type(location, higher) {
 
 function focusMapAndPopup(name) {
   m = _.find(locations, function(loc){return loc.fields.name == name}).marker;
-  map.panTo(m.latlng);
-  m.openPopup();
+  map.panTo(m._latlng).setZoom(19);
+  window.setTimeout('m.openPopup()', 500);
 }
 
 function removeFromClusterGroup(type) {
@@ -142,14 +142,14 @@ $(function(){
 	  layerGroups.addTo(map);
 		
 		//Make the whole LI into a button (good for mobile!!)
-		$('header li div label').toggle(
+		$('li div label').toggle(
 			function(){
 				li = $(this).parent().parent();
-				li.find('ul').slideDown();
+				li.find('>ul').show();
 			},
 			function() {
 				li = $(this).parent().parent();
-				li.find('ul').slideUp();
+				li.find('>ul').hide();
 			}
 		);
 		
@@ -180,8 +180,8 @@ $(function(){
 		}
 	);
 	_.each(locations, function(obj){ companyNames[companyNames.length] = obj.fields.name;  });
-	$("#search_field").autocomplete(companyNames);
-	$("#search_form").submit(function(e){e.preventDefault; focusMapAndPopup($('#search').val()); });
+	$("#search_field").autocomplete(companyNames).result(function(){ focusMapAndPopup($(this).val()); });
+	$("#search_form").submit(function(event){event.preventDefault(); focusMapAndPopup($('#search_field').val()); });
 });
 
 /* fullscreen crap */

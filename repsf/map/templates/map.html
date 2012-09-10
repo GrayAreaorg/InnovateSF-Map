@@ -19,7 +19,7 @@
   </form>
   <ul class="top">
     {% for type in types %}
-    <li id="{{type.name}}">
+    <li class="{{type.name}}">
       <div class="menu-label">
         <div id="{{type.name}}-icon" class="icon">&nbsp;</div>
         <label for="{{type.name}}">{{type.name|replace:"-, "|title}} <span>({{type.location_set.count}})</span></label>
@@ -27,15 +27,35 @@
           <input name="{{type.name}}" type="checkbox" checked />
         </div>
       </div>
+      {% if type.location_set.count %}
+      <ul class="locations">
+        {% for location in type.location_set.all %}
+          {% if location.type.count == 1 %}
+          <li class="location" data-name="{{location.name}}">
+            <a class="tencol twopush" href="#{{location.name}}">{{location.name}}</a>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {% endif %}
       {% if type.type_set.all %}
       <ul class="sub">
         {% for subtype in type.type_set.all %}
-        <li id="{{subtype.name}}"><div class="menu-label">
+        <li class="{{subtype.name}}"><div class="menu-label">
           <div id="{{subtype.name}}-icon" class="icon">&nbsp;</div>
           <label for="{{subtype.name}}">{{subtype.name|replace:"-, "|title}} <span>({{subtype.location_set.count}})</span></label>
           <div class="toggle">
             <input name="{{subtype.name}}" data-parent="{{type.name}}" type="checkbox" checked />
-          </div>
+          </div></div>
+          {% if subtype.location_set.count %}
+          <ul class="locations">
+            {% for location in subtype.location_set.all %}
+            <li class="location" data-name="{{location.name}}">
+              <a class="tencol twopush" href="#{{location.name}}">{{location.name}}</a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
         </li>
         {% endfor %}
       </ul>

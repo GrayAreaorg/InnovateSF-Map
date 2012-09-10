@@ -191,8 +191,20 @@ header {
     		}
     		ul {
     			display:none;
-    			li {
+    			&.sub>li {
     			    background:#555;
+    			    border-bottom:1px solid #444;
+    		    }
+    		    &.locations>li {
+    			    background:whiteSmoke;
+    			    border-botom:1px solid #999;
+    			    a {
+    			        color:#333;
+    			        text-decoration:none;
+    			        &:hover {
+        			        color:red;
+        			    }
+    			    }
     		    }
     		}
     	}
