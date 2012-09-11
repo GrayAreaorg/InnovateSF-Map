@@ -62,8 +62,8 @@ STATIC_ROOT = '/files'
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = 'http://s3-us-west-1.amazonaws.com/innovatesfgaffta'
 
-AWS_ACCESS_KEY_ID = os.environ['S3_KEY'] 
-AWS_SECRET_ACCESS_KEY = os.environ['S3_SECRET'] 
+AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY',None)
+AWS_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET',None)
 AWS_STORAGE_BUCKET_NAME = 'innovatesfgaffta'
 
 # Additional locations of static files
@@ -133,7 +133,8 @@ INSTALLED_APPS = (
 	'emailusernames',
 	'repsf.accounts',
     'south',
-	'storages'
+	'storages',
+	'moderation',
 )
 
 CACHES = {

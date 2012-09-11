@@ -3,10 +3,12 @@ from emailusernames.forms import EmailAuthenticationForm
 from repsf.accounts.forms import ISFAuthForm
 from accounts import views
 import settings
+from moderation.helpers import auto_discover
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
+auto_discover()
 
 urlpatterns = patterns('',
     # Examples:
@@ -23,7 +25,8 @@ urlpatterns = patterns('',
 	url(r'^accounts/logout/?$', 'repsf.accounts.views.end_session', name='logout'),
 	url(r'^locations/edit/(?P<id>\d+)/?$', 'repsf.map.views.update', name='update_location'),
 	url(r'^locations/create/?$', 'repsf.map.views.create', name='create_location'),
-	url(r'^embed/?$', 'repsf.map.views.home', {'embed': True}, name='spec_loc'),
+	url(r'^embed/?$', 'repsf.map.views.home', {'embed': True}, name='embed'),
+	url(r'^get_user/?$', 'repsf.accounts.views.is_logged_in', name='get_user'),
 	url(r'^(?P<location>[a-zA-Z0-9 ._]+)/?$', 'repsf.map.views.home', name='spec_loc'),
 )
 

@@ -101,6 +101,7 @@ function get_type(location, higher) {
 	returnType = _.find(types, function(obj){ return obj.fields.name == type_obj  });
 	if (!returnType) {
   	console.log(location);
+		return _.find(types, function(obj){ return obj.fields.name == 'company' });
 	} else {
 		return returnType;
 	}
@@ -155,7 +156,7 @@ function edit_link(linkID, theName){
 	var hackNext = theName;
 	$('.edit_link').bind('click', function(event){
 		event.preventDefault();
-		if(loggedIn) {
+		if(get_user().logged_in) {
 			var popupBox = $(this).parent();
 			var oldHtml = popupBox.html();
 			$.get($(this).attr('href'),function(response){
@@ -176,6 +177,20 @@ function edit_link(linkID, theName){
 	});
 }
 
+function get_user() {
+	var user;
+	$.ajax({
+    url: '/get_user',
+    type: 'get',
+    dataType: 'json',
+    async: false,
+    success: function(data) {
+        user = data;
+    } 
+	 });
+	return user;
+}
+
 function submit_form(form, container){
 	$(form).bind('submit', function(event){
 		event.preventDefault();
@@ -186,7 +201,10 @@ function submit_form(form, container){
 }
 
 $(function(){
-  _.each(types, function(obj){
+  _.each(types, function(obj,i){
+		if(typeof obj == undefined) {
+			types.splice(i,1);
+		}
     obj['layerGroup'] = new L.LayerGroup();
     button = $("#main-menu li input[name="+obj.fields.name+"]");
     sub = button.parent().parent().parent().find('ul li');
@@ -213,7 +231,10 @@ $(function(){
     );
   })
 
-  _.each(locations, function(location){
+  _.each(locations, function(location,i){
+		if(typeof location == undefined) {
+			locations.splice(i,1);
+		}
   	var icon;
   	switch(get_type(location, false).fields.name) {
   		case 'financial-organization':
@@ -333,7 +354,7 @@ $(function(){
 	$("#login_button").click(function(){
 		$.get("/locations/create",{}, function(response){
 			var loggedInMessage = "";
-			if(!loggedIn) { loggedInMessage = "<h1>You have to be logged in to do that!</h1><a id='register_link' href='/accounts/create'>Don't have an account? Register now - it's super easy.</a>";  }
+			if(!get_user().logged_in) { loggedInMessage = "<h1>You have to be logged in to do that!</h1><a id='register_link' href='/accounts/create'>Don't have an account? Register now - it's super easy.</a>";  }
 			look = $('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href='#'>x</a>" + loggedInMessage + response).fadeIn('fast');
 			look.find('input[name=next]').val('/');
 		});

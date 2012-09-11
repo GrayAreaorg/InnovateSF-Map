@@ -53,12 +53,12 @@ def create(request):
 
 
 @login_required	
-def _update(request, id=None):
+def update(request, id=None):
 	loc = Location.objects.get(pk=id)
 	if request.method == "GET":
 		form = LocationForm(instance=loc)
 		return render_to_response('location_edit_form.html', {"form" : form, "id":id},context_instance=RequestContext(request))
-	elif request.method == "POST":
+	if request.method == "POST":
 		newloc = LocationForm(request.POST, instance=loc)
 		if newloc.is_valid():
 			savedLoc = PendingLocation()
@@ -80,7 +80,7 @@ def _update(request, id=None):
 			return render_to_response('location_edit_form.html', {"form" : loc, "id":id},context_instance=RequestContext(request))
 		
 @login_required	
-def update(request, id=None):
+def _update(request, id=None):
 	return render_to_response('sorry.html', {"id":id},context_instance=RequestContext(request))
 		
 	

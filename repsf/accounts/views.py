@@ -6,6 +6,8 @@ from emailusernames.forms import EmailUserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.http import HttpResponse
+import json
 
 
 def create(request):
@@ -31,3 +33,7 @@ def read(request):
 def end_session(request):
 	logout(request)
 	return redirect('/')
+
+def is_logged_in(request):
+	status = {'logged_in':request.user.is_authenticated()}
+	return HttpResponse(json.dumps(status),'application/json')
