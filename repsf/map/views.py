@@ -6,7 +6,7 @@ from django.core import serializers
 import json
 from repsf.map.forms import *
 
-def home(request, location=None):
+def home(request, location=None, embed=False):
 	json_serializer = serializers.get_serializer("json")()
 	types 		= Type.objects.filter(parent = None)
 	locs		= json_serializer.serialize(Location.objects.all(), ensure_ascii=True, use_natural_keys = True)
@@ -16,7 +16,7 @@ def home(request, location=None):
 	except:
 		focus = None 
 	
-	return render_to_response('map.html', {"types" : types, "locs_json" : locs, "types_json" : types_json, "focus" : focus }, context_instance=RequestContext(request) )
+	return render_to_response('map.html', {"types" : types, "locs_json" : locs, "types_json" : types_json, "focus" : focus, "embed" : embed }, context_instance=RequestContext(request) )
 	
 def update(request):
 	if request.GET:

@@ -20,6 +20,7 @@ urlpatterns = patterns('',
 	url(r'^accounts/create/?$', 'repsf.accounts.views.create', name='register'),
 	url(r'^accounts/profile/?$', 'repsf.accounts.views.read', name='show_user'),
 	url(r'^accounts/logout/?$', 'repsf.accounts.views.end_session', name='logout'),
+	url(r'^embed/?$', 'repsf.map.views.home', {'embed': True}, name='spec_loc'),
 	url(r'^(?P<location>\w+)/?$', 'repsf.map.views.home', name='spec_loc'),
 )
 
