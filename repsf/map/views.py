@@ -8,7 +8,9 @@ from repsf.map.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from repsf.map import util
+from django.views.decorators.cache import cache_page
 
+@cache_page(60 * 60 * 24)
 def home(request, location=None, embed=False):
 	json_serializer = serializers.get_serializer("json")()
 	types 		= Type.objects.filter(parent = None)
