@@ -243,14 +243,14 @@ $(function(){
 			}, 0);
 		}
 	//REFACTOR
-	if(Modernizr.touch) {
+	/*if(Modernizr.touch) {
 		$(window).load(function(){
 			iscroll_init({action:"init", v:myScroll, el:"main-menu"});
 		});
 		$(window).resize(function(){
 			iscroll_init({action:"refresh", v:myScroll});
 		});
-	}
+	}*/
 	$("#close").toggle(
 		function(){
 			$("header").animate({ top: (-$("header").height()-20), bottom: ($(window).height()-20) });
