@@ -39,6 +39,9 @@ class Location(models.Model):
 	class Meta:
 		ordering = ['name']
 
+class PendingLocation(Location):
+	existing = models.ForeignKey(Location, null=True, blank=True, related_name = "revisions")
+
 class Type(models.Model):
 	name		= models.CharField(max_length=256, null = True, blank = True)
 	label		= models.CharField(max_length=256, null=True, blank=True)

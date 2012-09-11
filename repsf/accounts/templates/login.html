@@ -1,6 +1,26 @@
-<form action="{% url login %}" method="post">
-{% csrf_token %}
-{{ form.as_table }}
-<input type="hidden" name="next" value="{{ next }}" />
-<input type="submit" value="Submit" />
-</form>
+<div id="login_container">
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  <form action="{% url login %}" method="post">
+  {% csrf_token %}
+  {{ form.as_table }}
+  <input type="hidden" name="next" value="{{ next }}" />
+  <input type="submit" value="Submit" />
+  </form>
+</div>
+<script>
+$("#register_link").click(function(event){
+  $(this).siblings('h1').text('You\'ll be ready in no time.');
+  event.preventDefault();
+	var popupBox = $('#login_container');
+	$(this).remove();
+	$.get($(this).attr('href'),function(response){
+		popupBox.html(response);
+	});
+});
+</script>

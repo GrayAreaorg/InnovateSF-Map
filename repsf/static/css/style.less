@@ -107,6 +107,15 @@ img {
 @white : whiteSmoke;
 @purple : #2a2947;
 @green : #53b357;
+@red : #F26868;
+
+a, a:visited {
+	color:@blue;
+	text-decoration:none;
+	&:hover {
+		color:lighten(@blue, 10%);
+	}
+}
 
 .transbg (@color, @alpha) {
   background-color:hsla(hue(@color),saturation(@color),lightness(@color),@alpha);
@@ -291,6 +300,11 @@ header {
 			border:1px solid darken(@green, 10%);
 			.border-radius(5px);
 		}
+		&.error {
+			background:@red;
+			border:1px solid darken(@red, 10%);
+			.border-radius(5px);
+		}
 	}
 }
 form {
@@ -302,22 +316,30 @@ form {
 		margin-bottom:10px;
 	}
 	input, textarea, select {
+		outline:none;
+		border:1px solid @lightgrey;
 		.eightcol;
 		.last;
 		margin-bottom:10px;
 	}
 	textarea {
-		height:auto;
+		height:100px;
 	}
 	.helptext {
 		.tencol;
 		float:right;
 		display:block;
 		text-align:right;
-		color:@grey;
+		color:@white;
+		font-size:.9em;
 	}
 	input[type=submit] {
-		width:100%;
+		display:block;
+		clear:both;
+		width:100px;
+		.awesome;
+		height:25px;
+		margin:0 auto;
 	}
 }
 
@@ -331,6 +353,10 @@ form {
 	}
 	.leaflet-popup {
 		min-width:350px;
+	}
+	.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+		.transbg(@purple,90%);
+		color:@white!important;
 	}
 }
 
@@ -405,10 +431,25 @@ footer {
 	.threepush;
 	height:150px;
 	box-shadow:0px 0px 5px @darkgrey;
+	color:@white;
 	.border-radius(10px);
-	background:white;
+	.transbg(@purple,90%);
 	z-index:999;
 	height:auto;
+	padding:20px;
+	#modal_close, #mailchimp_close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 4px 5px 0 0;
+		text-align: center;
+		width: 18px;
+		height: 14px;
+		font: 16px/14px Tahoma, Verdana, sans-serif;
+		color: #C3C3C3;
+		text-decoration: none;
+		font-weight: bold;
+	}
 }
 #mailchimp, #about {
 	.modal;
@@ -419,12 +460,14 @@ header {
 	width:25%;
 	right:5%;
 	top:0;
-	bottom:85px;
+	bottom:105px;
 	z-index:2;
+	overflow:visible;
 	&.hidemenu {
 		top:0;
 		bottom:auto;
 		height:0px;
+		padding-bottom:0px;
 		#branding {
 			display:none;
 		}
@@ -449,6 +492,10 @@ header {
 		overflow-x:hidden;
 		left:0;
 	}
+	#menu_close {
+		top:auto;
+		bottom:-20px;
+	}
 	#menu_close:hover {
 		top:auto;
 	}
@@ -456,7 +503,7 @@ header {
 
 #map {
 	.leaflet-bottom {
-		bottom:62px;
+		bottom:67px;
 	}
 }
 
@@ -644,6 +691,11 @@ header {
 /* Hide visually and from screenreaders, but maintain layout */
 .invisible { visibility: hidden; }
 
+.big {
+	font-size:1.4em;
+	font-weight:bold;
+}
+
 /* Contain floats: h5bp.com/q */ 
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
@@ -667,6 +719,6 @@ header {
 	cursor: pointer;
 	height:15px;
 }
-.awesome:hover							{ background-color: @blue;}
+.awesome:hover							{ background-color: @blue; color:@white!important;}
 .awesome:active							{ top: 1px; }
 .small.awesome, .small.awesome:visited 	{ font-size: 11px; padding: ; }

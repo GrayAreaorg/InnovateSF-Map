@@ -61,7 +61,9 @@ var layerGroups = new L.MarkerClusterGroup({maxClusterRadius:50, showCoverageOnH
 var myScroll;
 var hoverTitle;
 var companyNames = [];
-map.addLayer(layer).setView(new L.LatLng(37.7810841,-122.4105332), 15);
+map.addLayer(layer).setView(new L.LatLng(37.7810841,-122.4105332), 15).on('popupopen', function() {
+	edit_link(this['pk'], this['name']);
+});
 //map.locate({setView: true, maxZoom: 16});
 
 var customIcon = L.Icon.extend({
@@ -114,6 +116,7 @@ function focusMapAndPopup(name) {
 		map.panTo(m._latlng);
 		m.openPopup();
 	});
+	return m;
 	/*window.setTimeout(function() {
 	    if (m._icon) {
 					map.panTo(m._latlng);
@@ -147,7 +150,8 @@ function iscroll_init(options) {
 	}
 }
 
-function edit_link(theLink, theName){
+function edit_link(linkID, theName){
+	var theLink = "<a class='edit_link' href='/locations/edit/"+linkID+"'>Edit</a>";
 	var hackNext = theName;
 	$('.edit_link').bind('click', function(event){
 		event.preventDefault();
@@ -165,7 +169,7 @@ function edit_link(theLink, theName){
 			});
 		} else {
 			$.get($(this).attr('href'), function(response){
-				var loggedInMessage = "<h1>You have to be logged in to do that!</h1>";
+				var loggedInMessage = "<h1>You have to be logged in to do that!</h1><a id='register_link' href='/accounts/create'>Don't have an account? Register now - it's super easy.</a>";
 				$('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href=''>Close</a>" + loggedInMessage + response).fadeIn('fast').find('input[name=next]').val('/'+hackNext);
 			});
 		}
@@ -228,7 +232,7 @@ $(function(){
 					this.openPopup();
 					console.log(this);
 					hoverTitle.remove();
-					edit_link(theLink, this['name']);
+					edit_link(location.pk, this['name']);
   			})
   			.on('mouseover', function(){
   				x = $(this._icon).offset();
@@ -243,6 +247,7 @@ $(function(){
   			});
   	location['marker'] = marker;
 		location['marker']['name'] = location.fields.name;
+		location['marker']['pk'] = location.fields.name;
   	get_type(location, true).layerGroup.addLayer(location.marker);
   });
 
@@ -315,6 +320,7 @@ $(function(){
 	)
 	
 	$("#modal_close").live('click', function(event){ event.preventDefault(); $('.modal').remove(); });
+	
 	//and finally,
 	if(typeof mapFocus != "undefined") {
 		try {
@@ -327,12 +333,13 @@ $(function(){
 	$("#login_button").click(function(){
 		$.get("/locations/create",{}, function(response){
 			var loggedInMessage = "";
-			if(!loggedIn) { loggedInMessage = "<h1>You have to be logged in to do that!</h1>";  }
-			$('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href=''>Close</a>" + loggedInMessage + response).fadeIn('fast');
+			if(!loggedIn) { loggedInMessage = "<h1>You have to be logged in to do that!</h1><a id='register_link' href='/accounts/create'>Don't have an account? Register now - it's super easy.</a>";  }
+			look = $('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href='#'>x</a>" + loggedInMessage + response).fadeIn('fast');
+			look.find('input[name=next]').val('/');
 		});
 	});
 	
-	var learn = "<a id='modal_close' href=''>Close</a><p>More than any other city, San Francisco is uniquely poised to innovate and invent the future right here, right now, by capitalizing on our greatest resource – our people.</p><p>With your help, we hope to use this map as a platform to show how much funding is coming in to SF startups, where jobs are and much much more. Add your company details and be a part of the story of San Francisco as the best place to live, work and play.</p>";
+	var learn = "<a id='modal_close' href=''>x</a><h2>About This Map</h2><p class='big'>October in San Francisco is Innovation Month — a celebration to spotlight the organizations and entrepreneurs that make up today’s generation of innovators.</p><p>More than any other city, San Francisco is uniquely poised to innovate and invent the future right here, right now, by capitalizing on our greatest resource – our people.</p><p>With your help, we hope to use this map as a platform to show how much funding is coming in to SF startups, where jobs are and much much more. Add your company details and be a part of the story of San Francisco as the best place to live, work and play.</p>";
 
 	$("#learn_button").click(function(){
 		$('<div>').appendTo('#container').addClass('modal').html(learn).fadeIn('fast');

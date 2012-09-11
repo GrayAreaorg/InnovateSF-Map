@@ -13,3 +13,5 @@ class TypeAdmin(admin.ModelAdmin):
 	list_display = ['name', 'label']
 
 admin.site.register(Type, TypeAdmin)
+
+admin.site.register(PendingLocation)

@@ -35,12 +35,12 @@ def create(request):
 			if not geo == False:
 				loc.lat, loc.lng, loc.fix_address = geo
 			else:
-				messages.error(request, 'Google Geocoder says your address is invalid!')
+				messages.error(request, 'The geocoder says your address is invalid! Can you be more specific?')
 				return render_to_response('location_create_form.html', {"form" : newloc, "id":id},context_instance=RequestContext(request))
 				
 			if newloc.save():
 				newloc.save_m2m()
-				messages.success(request, 'Location created successfully!')
+				messages.success(request, 'Location created successfully! We\'ll review it and add it to the map ASAP.')
 				return render_to_response('location_create_form.html', {"form" : newloc, "id":id},context_instance=RequestContext(request))
 			else:
 				messages.error(request, 'Something went wrong, try again')
@@ -51,7 +51,7 @@ def create(request):
 
 
 @login_required	
-def update(request, id=None):
+def _update(request, id=None):
 	loc = Location.objects.get(pk=id)
 	if request.method == "GET":
 		form = LocationForm(instance=loc)
@@ -59,13 +59,26 @@ def update(request, id=None):
 	elif request.method == "POST":
 		newloc = LocationForm(request.POST, instance=loc)
 		if newloc.is_valid():
-			if newloc.save():
-				messages.success(request, 'Edit successful!')
-				return render_to_response('location_edit_form.html', {"form" : newloc, "id":id},context_instance=RequestContext(request))
-			else:
-				messages.error(request, 'Something went wrong, try again')
-				return render_to_response('location_edit_form.html', {"form" : newloc, "id":id},context_instance=RequestContext(request))
+			savedLoc = PendingLocation()
+			for key, value in newloc.cleaned_data.iteritems():
+				if 'type' not in key:
+					setattr(savedLoc,key,value)
+			savedLoc.existing = loc
+			if savedLoc.save():
+				types = loc.type.all()
+				for type in types:
+					savedLoc.type.add(type)
+				if savedLoc.save():
+					messages.success(request, 'Edit successful! We\'ll review it and add it to the map ASAP.')
+					return render_to_response('location_edit_form.html', {"form" : newloc, "id":id},context_instance=RequestContext(request))
+				else:
+					messages.error(request, 'Something went wrong, try again')
+					return render_to_response('location_edit_form.html', {"form" : newloc, "id":id},context_instance=RequestContext(request))
 		else:
 			return render_to_response('location_edit_form.html', {"form" : loc, "id":id},context_instance=RequestContext(request))
+		
+@login_required	
+def update(request, id=None):
+	return render_to_response('sorry.html', {"id":id},context_instance=RequestContext(request))
 		
 	

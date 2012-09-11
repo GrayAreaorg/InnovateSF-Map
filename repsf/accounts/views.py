@@ -1,6 +1,6 @@
 # Create your views here.
 from emailusernames.utils import create_user
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from emailusernames.forms import EmailUserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -16,8 +16,9 @@ def create(request):
 		form = EmailUserCreationForm(request.POST)
 		if form.is_valid():
 			user = create_user(request.POST['email'], request.POST['password1'])
-			if user.save():
-				return render_to_response('thanks.html', {'user':user}, context_instance=RequestContext(request))
+			user.save()
+			messages.success(request,'New user successfully created! Go ahead and log in.')
+			return redirect('/accounts/login')
 		else:
 			return render_to_response('create.html', {'form':form}, context_instance=RequestContext(request))
 
@@ -29,4 +30,4 @@ def read(request):
 @login_required
 def end_session(request):
 	logout(request)
-	return render_to_response('thanks.html', context_instance=RequestContext(request))
+	return redirect('/')

@@ -1,7 +1,24 @@
-{{ form.non_field_errors }}
-{{ form.password.errors }}
-<form action="" method="post">
-{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Submit" />
-</form>
+<div id="create_container">
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  {{ form.non_field_errors }}
+  {{ form.password.errors }}
+  <form id="create_form" action="{% url register %}" method="post">
+  {% csrf_token %}
+  {{ form.as_table }}
+  <input type="submit" value="Submit" />
+  </form>
+</div>
+<script>
+$("#create_form").bind('submit', function(event){
+	event.preventDefault();
+	$.post($(form).attr('action'),form.serialize(),function(response){
+		$("#create_container").parent().html(response).find('input[name=next]').val('/');
+	});
+});
+</script>
