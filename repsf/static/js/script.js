@@ -284,5 +284,5 @@ $(function(){
 		focusMapAndPopup(mapFocus);
 	}
 	
-	make_fullscreen();
+	$(window).load(function(){make_fullscreen();});
 });
