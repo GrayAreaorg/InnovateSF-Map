@@ -4,6 +4,6 @@ from repsf.map.models import *
 class LocationForm(ModelForm):
 	
 	class Meta:
-		model = PendingLocation
+		model = Location
 		fields = ('name','address','desc','type','hiring')
 	

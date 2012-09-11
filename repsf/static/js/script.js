@@ -61,7 +61,7 @@ var layerGroups = new L.MarkerClusterGroup({maxClusterRadius:50, showCoverageOnH
 var myScroll;
 var hoverTitle;
 var companyNames = [];
-map.addLayer(layer).setView(new L.LatLng(37.7810841,-122.4105332), 15).on('popupopen', function() {
+map.addLayer(layer).setView(new L.LatLng(37.7810841,-122.4105332), 13).on('popupopen', function() {
 	edit_link(this['pk'], this['name']);
 });
 //map.locate({setView: true, maxZoom: 16});
@@ -156,6 +156,7 @@ function edit_link(linkID, theName){
 	var hackNext = theName;
 	$('.edit_link').bind('click', function(event){
 		event.preventDefault();
+		$(this).insertAfter('<div>').addClass('loader');
 		if(get_user().logged_in) {
 			var popupBox = $(this).parent();
 			var oldHtml = popupBox.html();
@@ -164,7 +165,7 @@ function edit_link(linkID, theName){
 				$('<a>').attr('href','#').text('cancel').appendTo(popupBox).bind('click',function(event){
 					event.preventDefault();
 					popupBox.html(oldHtml);
-					console.log(oldHtml);
+					$('.loader').remove();
 					edit_link(theLink);
 				});
 			});
@@ -194,6 +195,7 @@ function get_user() {
 function submit_form(form, container){
 	$(form).bind('submit', function(event){
 		event.preventDefault();
+		$(form).find('input[type=submit]').insertAfter('<div>').addClass('loader');
 		$.post($(form).attr('action'),form.serialize(),function(response){
 			container.html(response);
 		});
@@ -352,9 +354,10 @@ $(function(){
 	}
 	
 	$("#login_button").click(function(){
-		$.get("/locations/create",{}, function(response){
+		$.get("/locations/create", function(response){
 			var loggedInMessage = "";
-			if(!get_user().logged_in) { loggedInMessage = "<h1>You have to be logged in to do that!</h1><a id='register_link' href='/accounts/create'>Don't have an account? Register now - it's super easy.</a>";  }
+			if(!get_user().logged_in) { loggedInMessage = "<h1>You have to be logged in to do that!</h1><a id='register_link' href='/accounts/create'>Don't have an account? Register now - it's super easy.</a>";  
+			}
 			look = $('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href='#'>x</a>" + loggedInMessage + response).fadeIn('fast');
 			look.find('input[name=next]').val('/');
 		});

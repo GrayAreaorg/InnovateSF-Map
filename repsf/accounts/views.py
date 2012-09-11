@@ -19,7 +19,7 @@ def create(request):
 		if form.is_valid():
 			user = create_user(request.POST['email'], request.POST['password1'])
 			user.save()
-			messages.success(request,'New user successfully created! Go ahead and log in.')
+			messages.success(request,'New user successfully created! Go ahead and log in right here.')
 			return redirect('/accounts/login')
 		else:
 			return render_to_response('create.html', {'form':form}, context_instance=RequestContext(request))

@@ -61,21 +61,12 @@ def update(request, id=None):
 	if request.method == "POST":
 		newloc = LocationForm(request.POST, instance=loc)
 		if newloc.is_valid():
-			savedLoc = PendingLocation()
-			for key, value in newloc.cleaned_data.iteritems():
-				if 'type' not in key:
-					setattr(savedLoc,key,value)
-			savedLoc.existing = loc
-			if savedLoc.save():
-				types = loc.type.all()
-				for type in types:
-					savedLoc.type.add(type)
-				if savedLoc.save():
-					messages.success(request, 'Edit successful! We\'ll review it and add it to the map ASAP.')
-					return render_to_response('location_edit_form.html', {"form" : newloc, "id":id},context_instance=RequestContext(request))
-				else:
-					messages.error(request, 'Something went wrong, try again')
-					return render_to_response('location_edit_form.html', {"form" : newloc, "id":id},context_instance=RequestContext(request))
+			if newloc.save():
+				messages.success(request, 'Edit successful! We\'ll review it and add it to the map ASAP.')
+				return render_to_response('location_edit_form.html', {"form" : newloc, "id":id},context_instance=RequestContext(request))
+			else:
+				messages.error(request, 'Something went wrong, try again')
+				return render_to_response('location_edit_form.html', {"form" : newloc, "id":id},context_instance=RequestContext(request))
 		else:
 			return render_to_response('location_edit_form.html', {"form" : loc, "id":id},context_instance=RequestContext(request))
 		

@@ -17,7 +17,9 @@
 <script>
 $("#create_form").bind('submit', function(event){
 	event.preventDefault();
+	$(this).find('input[type=submit]').insertAfter('<div>').addClass('loader');
 	$.post($('#create_form').attr('action'),$('#create_form').serialize(),function(response){
+	  $('.loader').remove();
 		$("#create_container").parent().html(response).find('input[name=next]').val('/');
 	});
 });
