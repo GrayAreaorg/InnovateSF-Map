@@ -147,20 +147,28 @@ function iscroll_init(options) {
 	}
 }
 
-function edit_link(theLink){
+function edit_link(theLink, theName){
+	var hackNext = theName;
 	$('.edit_link').bind('click', function(event){
 		event.preventDefault();
-		var popupBox = $(this).parent();
-		var oldHtml = popupBox.html();
-		$.get($(this).attr('href'),function(response){
-			popupBox.html(response);
-			$('<a>').attr('href','#').text('cancel').appendTo(popupBox).bind('click',function(event){
-				event.preventDefault();
-				popupBox.html(oldHtml);
-				console.log(oldHtml);
-				edit_link(theLink);
+		if(loggedIn) {
+			var popupBox = $(this).parent();
+			var oldHtml = popupBox.html();
+			$.get($(this).attr('href'),function(response){
+				popupBox.html(response);
+				$('<a>').attr('href','#').text('cancel').appendTo(popupBox).bind('click',function(event){
+					event.preventDefault();
+					popupBox.html(oldHtml);
+					console.log(oldHtml);
+					edit_link(theLink);
+				});
 			});
-		});
+		} else {
+			$.get($(this).attr('href'), function(response){
+				var loggedInMessage = "<h1>You have to be logged in to do that!</h1>";
+				$('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href=''>Close</a>" + loggedInMessage + response).fadeIn('fast').find('input[name=next]').val('/'+hackNext);
+			});
+		}
 	});
 }
 
@@ -218,8 +226,9 @@ $(function(){
   	var marker = L.marker( 	new L.LatLng(location.fields.lat, location.fields.lng), {icon: icon} ).bindPopup(popup)
   			.on('click', function(){
 					this.openPopup();
+					console.log(this);
 					hoverTitle.remove();
-					edit_link(theLink);
+					edit_link(theLink, this['name']);
   			})
   			.on('mouseover', function(){
   				x = $(this._icon).offset();
@@ -233,6 +242,7 @@ $(function(){
   				hoverTitle.remove();
   			});
   	location['marker'] = marker;
+		location['marker']['name'] = location.fields.name;
   	get_type(location, true).layerGroup.addLayer(location.marker);
   });
 
@@ -306,13 +316,19 @@ $(function(){
 	
 	$("#modal_close").live('click', function(event){ event.preventDefault(); $('.modal').remove(); });
 	//and finally,
-	/*if(mapFocus != "") {
-		focusMapAndPopup(mapFocus);
-	}*/
+	if(typeof mapFocus != "undefined") {
+		try {
+			focusMapAndPopup(mapFocus);
+		} catch(e) {
+			//silence is golden
+		}
+	}
 	
 	$("#login_button").click(function(){
 		$.get("/locations/create",{}, function(response){
-			$('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href=''>Close</a>" + response).fadeIn('fast');
+			var loggedInMessage = "";
+			if(!loggedIn) { loggedInMessage = "<h1>You have to be logged in to do that!</h1>";  }
+			$('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href=''>Close</a>" + loggedInMessage + response).fadeIn('fast');
 		});
 	});
 	

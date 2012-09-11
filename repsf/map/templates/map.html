@@ -143,6 +143,11 @@
 var locations = {{ locs_json|safe }};
 var types = {{ types_json|safe }};
 var mapFocus = "{{ focus }}";
-//var embed = ("{{embed}}" == "True" ? true : false);
+var embed = ("{{embed}}" == "True" ? true : false);
+{% if user.is_authenticated %}
+var loggedIn = true;
+{% else %}
+var loggedIn = false;
+{% endif %}
 </script>
 {% endblock %}
