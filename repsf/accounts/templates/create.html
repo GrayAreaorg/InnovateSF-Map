@@ -17,7 +17,7 @@
 <script>
 $("#create_form").bind('submit', function(event){
 	event.preventDefault();
-	$.post($(form).attr('action'),form.serialize(),function(response){
+	$.post($('#create_form').attr('action'),$('#create_form').serialize(),function(response){
 		$("#create_container").parent().html(response).find('input[name=next]').val('/');
 	});
 });
