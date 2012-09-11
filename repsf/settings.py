@@ -56,11 +56,15 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/files'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL = 'http://s3-us-west-1.amazonaws.com/innovatesfgaffta'
+
+AWS_ACCESS_KEY_ID = os.environ['S3_KEY'] 
+AWS_SECRET_ACCESS_KEY = os.environ['S3_KEY'] 
+AWS_STORAGE_BUCKET_NAME = 'innovatesfgaffta'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -129,6 +133,7 @@ INSTALLED_APPS = (
 	'emailusernames',
 	'repsf.accounts',
     'south',
+	'storages'
 )
 
 CACHES = {
@@ -136,6 +141,8 @@ CACHES = {
         'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
     }
 }
+
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
