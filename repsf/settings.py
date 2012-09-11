@@ -63,7 +63,7 @@ STATIC_ROOT = '/files'
 STATIC_URL = 'http://s3-us-west-1.amazonaws.com/innovatesfgaffta'
 
 AWS_ACCESS_KEY_ID = os.environ['S3_KEY'] 
-AWS_SECRET_ACCESS_KEY = os.environ['S3_KEY'] 
+AWS_SECRET_ACCESS_KEY = os.environ['S3_SECRET'] 
 AWS_STORAGE_BUCKET_NAME = 'innovatesfgaffta'
 
 # Additional locations of static files
