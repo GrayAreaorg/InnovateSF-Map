@@ -5,6 +5,7 @@ from django.template import RequestContext
 from emailusernames.forms import EmailUserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.contrib import messages
 
 
 def create(request):
@@ -15,8 +16,8 @@ def create(request):
 		form = EmailUserCreationForm(request.POST)
 		if form.is_valid():
 			user = create_user(request.POST['email'], request.POST['password1'])
-			user.save()
-			return render_to_response('thanks.html', {'user':user}, context_instance=RequestContext(request))
+			if user.save():
+				return render_to_response('thanks.html', {'user':user}, context_instance=RequestContext(request))
 		else:
 			return render_to_response('create.html', {'form':form}, context_instance=RequestContext(request))
 

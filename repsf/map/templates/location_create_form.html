@@ -1,0 +1,22 @@
+<div id="create_form_container">
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  {{ form.non_field_errors }}
+  {{ form.password.errors }}
+  <form class="location_form clearfix" id="create_location_form" action="{% url repsf.map.views.create %}" method="POST">
+  {% csrf_token %}
+  {{ form.as_table }}
+  <input id="create" type="submit" value="Submit" />
+  </form>
+</div>
+<script>
+submit_form($("#create_location_form"),$("#create_location_form").parent());
+p = $("#create_form_container").parent();
+console.log(p);
+p.css({marginTop:-(p.height()/2)});
+</script>

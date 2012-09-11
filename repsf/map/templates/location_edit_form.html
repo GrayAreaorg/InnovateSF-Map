@@ -1,0 +1,18 @@
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{{ form.non_field_errors }}
+{{ form.password.errors }}
+<form class="location_form clearfix" id="edit_location_form" action="{% url repsf.map.views.update id=id %}" method="POST">
+{% csrf_token %}
+{{ form.as_table }}
+<input id="edit" type="submit" value="Submit" />
+</form>
+<script>
+submit_form($("#edit_location_form"),$("#edit_location_form").parent());
+//$('.messages').delay(50000).fadeOut('slow');
+</script>

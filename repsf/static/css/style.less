@@ -106,6 +106,7 @@ img {
 @yellow: #f7f312;
 @white : whiteSmoke;
 @purple : #2a2947;
+@green : #53b357;
 
 .transbg (@color, @alpha) {
   background-color:hsla(hue(@color),saturation(@color),lightness(@color),@alpha);
@@ -275,6 +276,50 @@ header {
 		}
 	}
 }
+.messages {
+	padding:0;
+	margin:0;
+	li {
+		margin:0;
+		padding:5px;
+		font-weight:bold;
+		list-style-type:none;
+		width:100;
+		margin-bottom:10px;
+		&.success {
+			background:@green;
+			border:1px solid darken(@green, 10%);
+			.border-radius(5px);
+		}
+	}
+}
+.location_form {
+	position:relative;
+	label {
+		.threecol;
+		text-align:right;
+		font-weight:bold;
+		margin-bottom:10px;
+	}
+	input, textarea, select {
+		.eightcol;
+		.last;
+		margin-bottom:10px;
+	}
+	textarea {
+		height:auto;
+	}
+	.helptext {
+		.tencol;
+		float:right;
+		display:block;
+		text-align:right;
+		color:@grey;
+	}
+	input[type=submit] {
+		width:100%;
+	}
+}
 
 #map {
 	h3.hover-title {
@@ -283,6 +328,9 @@ header {
 	    1px -1px 0 #ffffff,
 	    -1px 1px 0 #ffffff,
 	    1px 1px 0 #ffffff;
+	}
+	.leaflet-popup {
+		min-width:350px;
 	}
 }
 
@@ -360,6 +408,7 @@ footer {
 	.border-radius(10px);
 	background:white;
 	z-index:999;
+	height:auto;
 }
 #mailchimp, #about {
 	.modal;

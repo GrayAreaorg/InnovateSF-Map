@@ -7,9 +7,9 @@ class Location(models.Model):
 	address		= models.TextField(blank=True, null=True)
 	name		= models.CharField(max_length = 256, unique=True)
 	permalink	= models.CharField(max_length = 256, blank=True, null=True)
-	desc		= models.TextField(blank = True, null=True)
+	desc		= models.TextField(blank = True, null=True, verbose_name='Description')
 	type		= models.ManyToManyField("Type")
-	hiring      = models.BooleanField()
+	hiring      = models.BooleanField(verbose_name='Are you hiring?')
 	fix_address = models.BooleanField()
 	__original_name = None
 	

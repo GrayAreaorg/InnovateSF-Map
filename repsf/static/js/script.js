@@ -96,7 +96,12 @@ function get_type(location, higher) {
       }
     }
   });
-  return _.find(types, function(obj){ return obj.fields.name == type_obj  });
+	returnType = _.find(types, function(obj){ return obj.fields.name == type_obj  });
+	if (!returnType) {
+  	console.log(location);
+	} else {
+		return returnType;
+	}
 }
 
 function getMarker(name) {
@@ -142,6 +147,32 @@ function iscroll_init(options) {
 	}
 }
 
+function edit_link(theLink){
+	$('.edit_link').bind('click', function(event){
+		event.preventDefault();
+		var popupBox = $(this).parent();
+		var oldHtml = popupBox.html();
+		$.get($(this).attr('href'),function(response){
+			popupBox.html(response);
+			$('<a>').attr('href','#').text('cancel').appendTo(popupBox).bind('click',function(event){
+				event.preventDefault();
+				popupBox.html(oldHtml);
+				console.log(oldHtml);
+				edit_link(theLink);
+			});
+		});
+	});
+}
+
+function submit_form(form, container){
+	$(form).bind('submit', function(event){
+		event.preventDefault();
+		$.post($(form).attr('action'),form.serialize(),function(response){
+			container.html(response);
+		});
+	});
+}
+
 $(function(){
   _.each(types, function(obj){
     obj['layerGroup'] = new L.LayerGroup();
@@ -182,11 +213,13 @@ $(function(){
   		default:
   			icon = startupIcon;
   	}
-  	var popup = "<h1>"+location.fields.name+"</h1><div style='max-height:100px;overflow:auto'>"+location.fields.desc+"</div>";
+		var theLink = "<a class='edit_link' href='/locations/edit/"+location.pk+"'>Edit</a>";
+  	var popup = "<h1>"+location.fields.name+"</h1>"+theLink+"<div style='max-height:100px;overflow:auto'>"+location.fields.desc+"</div>";
   	var marker = L.marker( 	new L.LatLng(location.fields.lat, location.fields.lng), {icon: icon} ).bindPopup(popup)
   			.on('click', function(){
-  				this.openPopup();
-  				hoverTitle.remove();
+					this.openPopup();
+					hoverTitle.remove();
+					edit_link(theLink);
   			})
   			.on('mouseover', function(){
   				x = $(this._icon).offset();
@@ -278,8 +311,8 @@ $(function(){
 	}*/
 	
 	$("#login_button").click(function(){
-		$.get("/accounts/login",{}, function(response){
-			$('<div>').appendTo('#container').addClass('modal').html("<a id='modal_close' href=''>Close</a>" + response).fadeIn('fast');
+		$.get("/locations/create",{}, function(response){
+			$('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href=''>Close</a>" + response).fadeIn('fast');
 		});
 	});
 	
