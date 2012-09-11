@@ -3,7 +3,7 @@ boto==2.5.2
 dj-database-url==0.2.1
 django-cache-machine==0.6
 django-email-as-username==1.5.1
--e git://github.com/wellnesstelecom/django-livejs.git@43752cbc518cd8081a5803720ec4cf104a973b72#egg=django_livejs-dev
+-e git://github.com/dominno/django-moderation.git#egg=django-moderation
 django-moderation==0.3.2
 django-pylibmc-sasl==0.2.4
 django-registration==0.8
