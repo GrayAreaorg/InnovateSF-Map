@@ -223,6 +223,18 @@ $(function(){
   
 	  layerGroups.addTo(map);
 		
+		
+		$("#menu_close").toggle(
+			function(){
+				$("header").addClass('hidemenu');
+				$(this).html("open menu");
+			},
+			function(){
+				$("header").removeClass('hidemenu');
+				$(this).html('hide menu');
+			}
+		);
+		
 		//Make the whole LI into a button (good for mobile!!)
 		$('li div label').toggle(
 			function(){
@@ -237,11 +249,11 @@ $(function(){
 		
 		//We're all done here, refresh scrolling
 		//REFACTOR
-		if(Modernizr.touch) {
+		/*if(Modernizr.touch) {
 			setTimeout(function () {
 					iscroll_init({action:"refresh",v:myScroll});
 			}, 0);
-		}
+		}*/
 	//REFACTOR
 	/*if(Modernizr.touch) {
 		$(window).load(function(){
@@ -251,16 +263,6 @@ $(function(){
 			iscroll_init({action:"refresh", v:myScroll});
 		});
 	}*/
-	$("#close").toggle(
-		function(){
-			$("header").animate({ top: (-$("header").height()-20), bottom: ($(window).height()-20) });
-			$(this).html("open menu &darr;");
-		},
-		function(){
-			$("header").animate({ bottom: 20, top:0 });
-			$(this).html('hide menu &uarr;');
-		}
-	);
 	
 	$("#main-menu a").click(function(event){
 	  event.preventDefault();
@@ -280,9 +282,9 @@ $(function(){
 	)
 	
 	//and finally,
-	if(mapFocus != "") {
+	/*if(mapFocus != "") {
 		focusMapAndPopup(mapFocus);
-	}
+	}*/
 	
-	$(window).load(function(){make_fullscreen();});
+	$(window).load(function(){ make_fullscreen(); });
 });

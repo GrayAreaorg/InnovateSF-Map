@@ -357,6 +357,22 @@ header {
 	top:0;
 	bottom:80px;
 	z-index:2;
+	&.hidemenu {
+		top:0;
+		bottom:auto;
+		height:0px;
+		#branding {
+			display:none;
+		}
+		#main-menu {
+			display:none;
+		}
+		#menu_close {
+			&:after {
+				content:"\002193";
+			}
+		}
+	}
 	#main-menu {
 		position:absolute;
 		top:200px;
@@ -368,6 +384,9 @@ header {
 		overflow-y:auto;
 		overflow-x:hidden;
 		left:0;
+	}
+	#menu_close:hover {
+		top:auto;
 	}
 }
 
@@ -406,6 +425,22 @@ header {
 				display:none;
 			}
 		}
+		&.hidemenu {
+			top:0;
+			bottom:auto;
+			height:0px;
+			#branding {
+				display:none;
+			}
+			#main-menu {
+				display:none;
+			}
+			#menu_close {
+				&:after {
+					content:"\002191";
+				}
+			}
+		}
 		#main-menu {
 			position:absolute;
 			top:100px;
@@ -423,6 +458,9 @@ header {
 				padding-bottom:50px;
 			}
 		}
+		#menu_close:hover {
+			top:auto;
+		}
 	}
 	footer {
 		display:none;
@@ -434,26 +472,41 @@ header {
 		width:100%;
 		left:0;
 		right:0;
-		bottom:20px;
-		top:60%;
+		bottom:0px;
+		top:66%;
 		z-index:2;
-		h1 {
-			position:relative;
-			height:100%;
-			width:30%;
-			background-image:url("../img/logo.png");
-			background-position:top center;
-			background-size:contain;
-			background-repeat:no-repeat;
-			overflow:hidden;
-			text-indent:-999px;
-			display:inline-block;
-			margin:0;
-			vertical-align:top;
+		margin:0;
+		padding:0;
+		overflow:visible;
+		#branding {
+			.sixcol;
+			text-align:center;
+			h1 {
+				position:relative;
+				height:100px;
+				width:100%;
+				text-indent:-100%;
+				display:block;
+				margin:0;
+				vertical-align:top;
+				margin:0 auto;
+			}
+			p {
+				display:none;
+			}
+			#buttons {
+				a {
+					width:80%;
+					margin-top:10px;
+				}
+			}
 		}
 		#main-menu {
-			position:relative;
-			width:60%;
+			.sixcol;
+			.last;
+			position:absolute;
+			right:0;
+			left:auto;
 			height:100%;
 			padding:0;
 			margin:0;
@@ -466,11 +519,38 @@ header {
 				padding-bottom:50px;
 			}
 		}
+		#menu_close {
+			top:-20px;
+			&:after{
+				content:"\002193";
+			}
+			&:hover {
+				top:-20px;
+				bottom:auto!important;
+			}
+		}
+		&.hidemenu {
+			height:0px;
+			#branding {display:none}
+			#main-menu {display:none}
+			top:auto;
+			bottom:0;
+			#menu_close {
+				&:after{
+					content:"\002191";
+				}
+			}
+		}
 	}
 	#map {
 		.leaflet-bottom {
-			bottom:0px!important;
+			top:0px!important;
+			width:50%!important;
+			bottom:auto;
 		}
+	}
+	footer {
+		display:none;
 	}
 }
 
@@ -525,4 +605,4 @@ header {
 }
 .awesome:hover							{ background-color: #111; color: #fff; }
 .awesome:active							{ top: 1px; }
-.small.awesome, .small.awesome:visited 			{ font-size: 11px; padding: ; }
+.small.awesome, .small.awesome:visited 	{ font-size: 11px; padding: ; }
