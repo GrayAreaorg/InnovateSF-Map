@@ -184,7 +184,7 @@ header {
 				color:@white;
 				vertical-align:middle;
     			&:hover {
-    				color:@yellow;
+    				background:@blue;
     				cursor:pointer;
     			}
     			.icon {
@@ -220,7 +220,7 @@ header {
     				float:right;
     				height:100%;
     				text-align:center;
-    				background:@darkgrey;
+    				background:transparent;
     				input {
     				    width: auto;
     				    height: auto;
@@ -241,6 +241,9 @@ header {
     			&.sub>li div.menu-label {
     			    background:@grey;
     			    border-bottom:1px solid @lightgrey;
+					&:hover {
+						background:@blue;
+					}
     		    }
     		    &.locations>li {
     			    background:@white;
@@ -267,7 +270,7 @@ header {
 			padding-left:2px;
 		}
 		&:hover {
-			color:@blue;
+			color:@darkgrey;
 		}
 	}
 }
@@ -283,11 +286,16 @@ header {
 }
 
 footer {
+	
 	position:absolute;
 	width:100%;
 	bottom:0;
-	height:55px;
-	background:@darkgrey;
+	height:60px;
+	padding-top:5px;
+	padding-left:5px;
+	//background:@darkgrey;
+	//.transbg(@darkgrey,80%);
+	background: @darkgrey;
 	.leaflet-control-attribution {
 		a {
 			color:@blue;
@@ -298,45 +306,48 @@ footer {
 		display:inline-block;
 		float:left;
 		text-indent:-100%;
-		opacity:0.2;
 		margin-right:10px;
 		vertical-align:middle;
-		&:hover{
-			opacity:1.0;
-		}
 	}
-	.cityseal{
-		background-position: -269px 0;
-		width: 56px;
-		height: 55px;
-	}
-
 	.gaffta-small{
-		margin-top:7px;
 		background-position: 0 0;
 		width: 128px;
+		margin-top:10px;
 		height: 41px;
 	}
 
 	.golightly{
-		background-position: -328px 0;
+		background-position: -421px 0;
 		width: 114px;
 		height: 51px;
 	}
 
 	.sfciti{
-		background-position: -130px 0;
+		background-position: -133px 0;
 		width: 136px;
-		margin-top:12px;
+		margin-top:15px;
 		height: 31px;
+	}
+
+	.cityseal{
+		background-position: -274px 0;
+		width: 147px;
+		height: 55px;
+	}
+	iframe, #tweet_button, #mailchimp_link {
+		float:right;
+	}
+	iframe {
+		margin-top:17px;
 	}
 	#mailchimp_link {
 		display:inline-block;
 		margin-top:15px;
 		vertical-align:top;
+		margin-right:10px;
 	}
 }
-#mailchimp, #about {
+.modal {
 	display:none;
 	position:absolute;
 	top:50%;
@@ -349,13 +360,16 @@ footer {
 	background:white;
 	z-index:999;
 }
+#mailchimp, #about {
+	.modal;
+}
 @media only screen and (min-width: 768px) {
 	
 header {
 	width:25%;
 	right:5%;
 	top:0;
-	bottom:80px;
+	bottom:85px;
 	z-index:2;
 	&.hidemenu {
 		top:0;
@@ -392,7 +406,7 @@ header {
 
 #map {
 	.leaflet-bottom {
-		bottom:58px;
+		bottom:62px;
 	}
 }
 
@@ -588,10 +602,10 @@ header {
 /* stolen from Zurb */
 
 .awesome, .awesome:visited {
-	background: #222 url(alert-overlay.png) repeat-x; 
+	background: @yellow url(alert-overlay.png) repeat-x; 
 	display: inline-block; 
 	padding: 5px 10px 6px; 
-	color: #fff; 
+	color: @darkgrey; 
 	text-decoration: none;
 	-moz-border-radius: 5px; 
 	-webkit-border-radius: 5px;
@@ -603,6 +617,6 @@ header {
 	cursor: pointer;
 	height:15px;
 }
-.awesome:hover							{ background-color: #111; color: #fff; }
+.awesome:hover							{ background-color: @blue;}
 .awesome:active							{ top: 1px; }
 .small.awesome, .small.awesome:visited 	{ font-size: 11px; padding: ; }

@@ -35,6 +35,9 @@ class Location(models.Model):
 				pass
 		super(Location, self).save(force_insert, force_update)
 		self.__original_address = self.address
+	
+	class Meta:
+		ordering = ['name']
 
 class Type(models.Model):
 	name		= models.CharField(max_length=256, null = True, blank = True)
@@ -50,4 +53,7 @@ class Type(models.Model):
 		except:
 			id = 0
 		return { self.name:id }
+	
+	class Meta:
+		ordering = ['name']
 	

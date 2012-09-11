@@ -286,5 +286,11 @@ $(function(){
 		focusMapAndPopup(mapFocus);
 	}*/
 	
+	$("#login_button").click(function(){
+		$.get("/accounts/login",{}, function(response){
+			$('<div>').appendTo('#container').addClass('modal').html(response).fadeIn('fast');
+		});
+	});
+	
 	$(window).load(function(){ make_fullscreen(); });
 });

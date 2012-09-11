@@ -17,8 +17,8 @@
   <h1>Represent SF</h1>
   <p id="header_about">This map is a platform to show how much funding is coming in to SF startups, where jobs are and much much more. Add your company details and be a part of the story of San Francisco as the best place to live, work and play.</p>
   <div id="buttons">
-    <a href="#" class="awesome">Learn More</a>
-    <a href="#" class="awesome">Add Something</a>
+    <a id="learn_button" href="#" class="awesome">Learn More</a>
+    <a id="login_button" href="#" class="awesome">Add Something</a>
   </div>
 </div>
 <nav id="main-menu">
@@ -42,17 +42,6 @@
           <input name="{{type.name}}" type="checkbox" checked />
         </div>
       </div>
-      {% if type.location_set.count %}
-      <ul class="locations">
-        {% for location in type.location_set.all %}
-          {% if location.type.count == 1 %}
-          <li class="location" data-name="{{location.name}}">
-            <a class="tencol twopush" href="#{{location.name}}">{{location.name}}</a>
-          </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-      {% endif %}
       {% if type.type_set.all %}
       <ul class="sub">
         {% for subtype in type.type_set.all %}
@@ -81,6 +70,17 @@
           </ul>
           {% endif %}
         </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% if type.location_set.count %}
+      <ul class="locations">
+        {% for location in type.location_set.all %}
+          {% if location.type.count == 1 %}
+          <li class="location" data-name="{{location.name}}">
+            <a class="tencol twopush" href="#{{location.name}}">{{location.name}}</a>
+          </li>
+          {% endif %}
         {% endfor %}
       </ul>
       {% endif %}
@@ -120,13 +120,13 @@
 <a href="http://gaffta.org" class="gaffta-small">GAFFTA</a>
 <a href="http://www.ci.sf.ca.us/" class="cityseal">City of San Francisco</a>
 <a href="http://www.sfciti.com/" class="sfciti">sfciti</a>
-<a href="http://www.golightlyhouse.com/" class="golightly">Golightly House</a>
+<a href="http://www.golightlyhouse.com/contact/" class="golightly">Golightly House</a>
 
 <!--Facebook-->
-<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Finnovatesf.com&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font=arial&amp;height=21&amp;appId=337898285976" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px; margin-top:17px" allowTransparency="true"></iframe>
+<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Finnovatesf.com&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font=arial&amp;height=21&amp;appId=337898285976" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px;" allowTransparency="true"></iframe>
 
 <!--Twitter-->
-<a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="innovatesf" style="margin-top:16px;">Tweet</a>
+<a id="tweet_button" href="https://twitter.com/share" class="twitter-share-button" data-text="San Francisco is Celebrating October as Innovation Month! #InnovateSF interactive map visualization. http://map.innovatesf.com" data-via="innovatesf">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
 <a href="#" id="mailchimp_link" class="awesome small">Subscribe to our mailing list</a>
