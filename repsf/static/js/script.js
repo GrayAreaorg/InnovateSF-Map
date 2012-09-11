@@ -68,7 +68,7 @@ map.addLayer(layer).setView(new L.LatLng(37.7810841,-122.4105332), 15).on('popup
 
 var customIcon = L.Icon.extend({
 	options: {
-	            shadowUrl: '/static/img/shadow.png',
+	            shadowUrl: 'http://s3-us-west-1.amazonaws.com/innovatesfgaffta/img/shadow.png',
 	            iconSize:     [41, 38],
 	            shadowSize:   [41, 38],
 	            iconAnchor:   [21, 38],
@@ -77,9 +77,9 @@ var customIcon = L.Icon.extend({
 	        }
 });
 
-var startupIcon = new customIcon({iconUrl: '/static/img/company.png'});
-var investorIcon = new customIcon({iconUrl: '/static/img/financial-organization.png'});
-var serviceIcon = new customIcon({iconUrl: '/static/img/service-provider.png'});
+var startupIcon = new customIcon({iconUrl: 'http://s3-us-west-1.amazonaws.com/innovatesfgaffta/img/company.png'});
+var investorIcon = new customIcon({iconUrl: 'http://s3-us-west-1.amazonaws.com/innovatesfgaffta/img/financial-organization.png'});
+var serviceIcon = new customIcon({iconUrl: 'http://s3-us-west-1.amazonaws.com/innovatesfgaffta/img/service-provider.png'});
 
 //REFACTOR THIS, YOU ALREADY HAVE THE PARENT NAME
 function get_type(location, higher) {
