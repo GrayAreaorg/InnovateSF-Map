@@ -104,22 +104,12 @@ function getMarker(name) {
 }
 
 function focusMapAndPopup(name) {
-	var foundOne;
 	var m = getMarker(name);
-  map.panTo(m._latlng);
-	layerGroups._topClusterLevel._recursively(map.getBounds(), 0, map.getMaxZoom()+2, function(c) {
-		if (foundOne) {
-			return;
-		}
-		for (var i = c._markers.length; i >= 0; i--) {
-			if (c._markers[i] === m) {
-				foundOne = c;
-				return;
-			}
-		}
+	layerGroups.zoomToShowLayer(m, function () {
+		map.panTo(m._latlng);
+		m.openPopup();
 	});
-	//foundOne.zoomToBounds();
-	window.setTimeout(function() {
+	/*window.setTimeout(function() {
 	    if (m._icon) {
 					map.panTo(m._latlng);
 	        m.openPopup();
@@ -130,7 +120,7 @@ function focusMapAndPopup(name) {
 							m.openPopup();
 	         }, 250)
 	    }
-	}, 250);
+	}, 250);*/
 }
 
 function removeFromClusterGroup(type) {
@@ -281,6 +271,7 @@ $(function(){
 		}
 	)
 	
+	$("#modal_close").live('click', function(event){ event.preventDefault(); $('.modal').remove(); });
 	//and finally,
 	/*if(mapFocus != "") {
 		focusMapAndPopup(mapFocus);
@@ -288,8 +279,14 @@ $(function(){
 	
 	$("#login_button").click(function(){
 		$.get("/accounts/login",{}, function(response){
-			$('<div>').appendTo('#container').addClass('modal').html(response).fadeIn('fast');
+			$('<div>').appendTo('#container').addClass('modal').html("<a id='modal_close' href=''>Close</a>" + response).fadeIn('fast');
 		});
+	});
+	
+	var learn = "<a id='modal_close' href=''>Close</a><p>More than any other city, San Francisco is uniquely poised to innovate and invent the future right here, right now, by capitalizing on our greatest resource – our people.</p><p>With your help, we hope to use this map as a platform to show how much funding is coming in to SF startups, where jobs are and much much more. Add your company details and be a part of the story of San Francisco as the best place to live, work and play.</p>";
+
+	$("#learn_button").click(function(){
+		$('<div>').appendTo('#container').addClass('modal').html(learn).fadeIn('fast');
 	});
 	
 	$(window).load(function(){ make_fullscreen(); });
