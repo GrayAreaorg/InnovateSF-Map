@@ -256,12 +256,16 @@ header {
     		}
     	}
     }
-	#close {
+	#menu_close {
 		position:absolute;
 		bottom:0;
 		left:0;
 		text-decoration:none;
-		padding:2px;
+		padding:2px 5px 2px 0px;
+		&:after {
+			content:"\002191";
+			padding-left:2px;
+		}
 		&:hover {
 			color:@blue;
 		}
@@ -275,9 +279,6 @@ header {
 	    1px -1px 0 #ffffff,
 	    -1px 1px 0 #ffffff,
 	    1px 1px 0 #ffffff;
-	}
-	.leaflet-bottom {
-		bottom:58px;
 	}
 }
 
@@ -370,6 +371,12 @@ header {
 	}
 }
 
+#map {
+	.leaflet-bottom {
+		bottom:58px;
+	}
+}
+
 }
 
 @media only screen and (max-width: 767px) and (orientation: landscape) {
@@ -379,34 +386,46 @@ header {
 		top:0;
 		bottom:20px;
 		z-index:2;
-	}
-	h1 {
-		position:relative;
-		height:30%;
-		max-height:163px;
-		max-width:320px;
-		background-image:url("../img/logo.png");
-		background-position:top center;
-		background-size:contain;
-		background-repeat:no-repeat;
-		overflow:hidden;
-		text-indent:-999px;
-	}
-	#main-menu {
-		position:absolute;
-		top:30%;
-		bottom:20px;
-		height:auto;
-		padding:0;
-		margin:0 0 0 20px;
-		width:100%;
-		overflow-y:auto;
-		overflow-x:hidden;
-		ul {
-			float:left;
-			width:100%;
-			padding-bottom:50px;
+		overflow:visible;
+		#branding {
+			height:100px;
+			h1 {
+				position:relative;
+				height:80px;
+				.sixcol;
+			}
+			#buttons {
+				.sixcol;
+				.last;
+				a {
+					margin-top:10px;
+					width:80%;
+				}
+			}
+			p {
+				display:none;
+			}
 		}
+		#main-menu {
+			position:absolute;
+			top:100px;
+			bottom:20px;
+			height:auto;
+			padding:0;
+			margin:0;
+			width:100%;
+			overflow-y:auto;
+			overflow-x:hidden;
+			left:0;
+			ul {
+				float:left;
+				width:100%;
+				padding-bottom:50px;
+			}
+		}
+	}
+	footer {
+		display:none;
 	}
 }
 
@@ -446,6 +465,11 @@ header {
 				width:100%;
 				padding-bottom:50px;
 			}
+		}
+	}
+	#map {
+		.leaflet-bottom {
+			bottom:0px!important;
 		}
 	}
 }
