@@ -3,7 +3,7 @@
 */
 /* fullscreen crap */
 function make_fullscreen() {
-	var page = document.getElementById('container'),
+	var page = document.getElementById('main'),
 	    ua = navigator.userAgent,
 	    iphone = ~ua.indexOf('iPhone') || ~ua.indexOf('iPod'),
 	    ipad = ~ua.indexOf('iPad'),
