@@ -86,10 +86,10 @@ function get_type(location, higher) {
   var i = -1;
   var type_obj = {};
   _.each(location.fields.type, function(obj){
-    x = _.values(obj)[0]
+    var x = _.values(obj)[0]
     if(higher == true) { 
       if (x > i) {
-        x = i;
+        i = x;
         type_obj = _.keys(obj)[0]; 
       }
     } else {
@@ -100,6 +100,7 @@ function get_type(location, higher) {
   });
 	returnType = _.find(types, function(obj){ return obj.fields.name == type_obj  });
 	if (!returnType) {
+		console.log('couldn\'t find type:');
   	console.log(location);
 		return _.find(types, function(obj){ return obj.fields.name == 'company' });
 	} else {
@@ -204,9 +205,6 @@ function submit_form(form, container){
 
 $(function(){
   _.each(types, function(obj,i){
-		if(typeof obj == undefined) {
-			types.splice(i,1);
-		}
     obj['layerGroup'] = new L.LayerGroup();
     button = $("#main-menu li input[name="+obj.fields.name+"]");
     sub = button.parent().parent().parent().find('ul li');
@@ -234,9 +232,6 @@ $(function(){
   })
 
   _.each(locations, function(location,i){
-		if(typeof location == undefined) {
-			locations.splice(i,1);
-		}
   	var icon;
   	switch(get_type(location, false).fields.name) {
   		case 'financial-organization':

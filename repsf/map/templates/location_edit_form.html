@@ -9,10 +9,9 @@
 {{ form.password.errors }}
 <form class="location_form clearfix" id="edit_location_form" action="{% url repsf.map.views.update id=id %}" method="POST">
 {% csrf_token %}
-{{ form.as_table }}
+{{ form.as_ul }}
 <input id="edit" type="submit" value="Submit" />
 </form>
 <script>
 submit_form($("#edit_location_form"),$("#edit_location_form").parent());
-//$('.messages').delay(50000).fadeOut('slow');
 </script>
