@@ -177,17 +177,14 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler'
         },
 		'logfile': {
-				'level':'DEBUG',
-				'class':'logging.handlers.RotatingFileHandler',
-				'filename': PROJECT_ROOT + "/logfile",
-				'maxBytes': 50000,
-				'backupCount': 2,
-				'formatter': 'simple',
+			'class':'logging.handlers.WatchedFileHandler',
+			'filename': PROJECT_ROOT + "/logfile",
+			'formatter': 'simple',
 		},
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins','logfile'],
+        'django': {
+            'handlers': ['logfile'],
             'level': 'ERROR',
             'propagate': True,
         },

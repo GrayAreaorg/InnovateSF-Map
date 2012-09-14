@@ -1,0 +1,9 @@
+ERROR Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/beatpanda/.virtualenvs/repsf/lib/python2.7/site-packages/django/core/handlers/base.py", line 111, in get_response
+    response = callback(request, *callback_args, **callback_kwargs)
+  File "/Users/beatpanda/.virtualenvs/repsf/lib/python2.7/site-packages/django/utils/decorators.py", line 91, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/Users/beatpanda/dev/repsf/repsf/map/views.py", line 18, in home
+    types_json	= json_serializer.serialize(Type.objects.are(), ensure_ascii=True, use_natural_keys = True)
+AttributeError: 'Manager' object has no attribute 'are'
