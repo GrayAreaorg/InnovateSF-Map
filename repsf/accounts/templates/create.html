@@ -10,7 +10,7 @@
   {{ form.password.errors }}
   <form id="create_form" action="{% url register %}" method="post">
   {% csrf_token %}
-  {{ form.as_table }}
+  {{ form.as_ul }}
   <input type="submit" value="Submit" />
   </form>
 </div>

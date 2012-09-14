@@ -134,7 +134,7 @@ INSTALLED_APPS = (
 	'repsf.accounts',
     'south',
 	'storages',
-	'moderation',
+	'django_monitor',
 )
 
 CACHES = {

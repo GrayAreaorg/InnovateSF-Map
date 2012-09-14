@@ -8,18 +8,18 @@
   {% endif %}
   <form action="{% url login %}" method="post">
   {% csrf_token %}
-  {{ form.as_table }}
+  {{ form.as_ul }}
   <input type="hidden" name="next" value="{{ next }}" />
   <input type="submit" value="Submit" />
   </form>
 </div>
 <script>
 $("#register_link").click(function(event){
-  $(this).siblings('h1').text('You\'ll be ready in no time.');
+  $(this).parent().parent().find('h1').text('You\'ll be ready in no time.');
   event.preventDefault();
 	var popupBox = $('#login_container');
 	$(this).remove();
-	$.get($(this).attr('href'),function(response){
+	$.get($(this).find('a').attr('href'),function(response){
 		popupBox.html(response);
 	});
 });
