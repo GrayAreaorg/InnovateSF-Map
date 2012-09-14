@@ -5,14 +5,15 @@ from django.contrib.auth.models import User
 class Location(models.Model):
 	lat 		= models.DecimalField(max_digits=15, decimal_places=10, blank = True, null = True)
 	lng 		= models.DecimalField(max_digits=15, decimal_places=10, blank = True, null = True)
-	address		= models.TextField(blank=True, null=True)
+	address		= models.TextField()
 	name		= models.CharField(max_length = 256, unique=True)
 	permalink	= models.CharField(max_length = 256, blank=True, null=True)
 	desc		= models.TextField(blank = True, null=True, verbose_name='Description')
 	type		= models.ManyToManyField("Type")
 	hiring      = models.BooleanField(verbose_name='Are you hiring?')
 	fix_address = models.BooleanField()
-	owner		= models.ForeignKey(User, null = True)
+	owner		= models.ForeignKey(User, null = True, related_name='owner')
+	created_by	= models.ForeignKey(User, null = True, related_name='creator')
 	__original_name = None
 	
 	def __unicode__(self):
@@ -40,6 +41,9 @@ class Location(models.Model):
 				
 			if geo:
 				place, (self.lat, self.lng) = geo[0]
+		
+		if self.type.all() == []:
+			self.type.add(m.Type.objects.get(name="company"))
 
 		super(Location, self).save(force_insert, force_update)
 		self.__original_address = self.address
