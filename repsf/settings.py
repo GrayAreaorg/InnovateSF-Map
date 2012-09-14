@@ -137,11 +137,11 @@ INSTALLED_APPS = (
 	'moderation',
 )
 
-CACHES = {
+"""CACHES = {
     'default': {
         'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
     }
-}
+}"""
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
