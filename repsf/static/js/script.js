@@ -172,8 +172,8 @@ function edit_link(linkID, theName){
 			});
 		} else {
 			$.get($(this).attr('href'), function(response){
-				var loggedInMessage = "<h1>You have to be logged in to do that!</h1><a id='register_link' href='/accounts/create'>Don't have an account? Register now - it's super easy.</a>";
-				$('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href=''>Close</a>" + loggedInMessage + response).fadeIn('fast').find('input[name=next]').val('/'+hackNext);
+				var loggedInMessage = "<h1>You have to be logged in to do that!</h1><div id='register_link'>Don't have an account? <a href='/accounts/create'>Register here</a> - it's super easy.</div>";
+				$('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href=''>x</a>" + loggedInMessage + response).fadeIn('fast').find('input[name=next]').val('/'+hackNext);
 			});
 		}
 	});
@@ -244,7 +244,6 @@ $(function(){
   			icon = startupIcon;
   	}
 		var hoverTitle = $('<h3 class="hover-title">').text(location.fields.name);
-		console.log(hoverTitle.width());
 		var theLink = "<a class='edit_link' href='/locations/edit/"+location.pk+"'>Edit</a>";
   	var popup = "<h1>"+location.fields.name+"</h1>"+theLink+"<div style='max-height:100px;overflow:auto'>"+location.fields.desc+"</div>";
   	var marker = L.marker( 	new L.LatLng(location.fields.lat, location.fields.lng), {icon: icon} ).bindPopup(popup)

@@ -1,5 +1,6 @@
 from django.db import models
 from geopy import geocoders
+from django.contrib.auth.models import User
 
 class Location(models.Model):
 	lat 		= models.DecimalField(max_digits=15, decimal_places=10, blank = True, null = True)
@@ -11,6 +12,7 @@ class Location(models.Model):
 	type		= models.ManyToManyField("Type")
 	hiring      = models.BooleanField(verbose_name='Are you hiring?')
 	fix_address = models.BooleanField()
+	owner		= models.ForeignKey(User, null = True)
 	__original_name = None
 	
 	def __unicode__(self):
@@ -24,15 +26,21 @@ class Location(models.Model):
 		self.__original_address = self.address
 	
 	def save(self, force_insert=False, force_update=False):
-		if self.address != self.__original_address:
-			g = geocoders.Google();
+		if self.address != self.__original_address or not self.lat:
+			g = geocoders.Google()
+			geo = False
 			try:
-				geo = g.geocode(search_address, exactly_one = False)
+				geo = g.geocode(self.address, exactly_one = False)
 				if len(geo) > 1:
-					self.fix_address = True                
-				place, (lat, lon) = geo[0]
+					self.fix_address = True                	
 			except:
-				pass
+				#REFACTOR FOR ANY CITY
+				geo = g.geocode('San Francisco', exactly_one = False)
+				self.fix_address = True
+				
+			if geo:
+				place, (self.lat, self.lng) = geo[0]
+
 		super(Location, self).save(force_insert, force_update)
 		self.__original_address = self.address
 	

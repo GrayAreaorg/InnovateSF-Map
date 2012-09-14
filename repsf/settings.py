@@ -93,6 +93,8 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+	'johnny.middleware.LocalStoreClearMiddleware',
+    'johnny.middleware.QueryCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,14 +136,17 @@ INSTALLED_APPS = (
 	'repsf.accounts',
     'south',
 	'storages',
-	'django_monitor',
+	'moderation',
 )
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
-    }
+    'default' : dict(
+        BACKEND = 'johnny.backends.memcached.PyLibMCCache',
+        LOCATION = ['127.0.0.1:11211'],
+        JOHNNY_CACHE = True,
+    )
 }
+JOHNNY_MIDDLEWARE_KEY_PREFIX='jc_isf'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
