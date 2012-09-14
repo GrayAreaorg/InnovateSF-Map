@@ -38,7 +38,10 @@ html, body{
 	height: 100%;
 }
 
-body, button, input, select, textarea { font-family: sans-serif; color: #222; }
+body, button, input, select, textarea, a, p { font-family: "Helvetica Neue","Helvetica",Arial,sans-serif; color: whiteSmoke; }
+h1,h2,h3,h4,h5,h6 {
+	font-family:"Maven Pro",sans-serif;
+}
 
 /* 
  * Remove text-shadow in selection highlight: h5bp.com/i

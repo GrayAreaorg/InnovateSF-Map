@@ -10,8 +10,10 @@
   {{ form.non_field_errors }}
   {{ form.password.errors }}
   <form class="location_form clearfix" id="create_location_form" action="{% url repsf.map.views.create %}" method="POST">
+  <ul>
   {% csrf_token %}
-  {{ form.as_table }}
+  {{ form.as_ul }}
+  </ul>
   <input id="create" type="submit" value="Submit" />
   </form>
 </div>

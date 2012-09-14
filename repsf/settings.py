@@ -93,6 +93,8 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+	#'johnny.middleware.LocalStoreClearMiddleware',
+    #'johnny.middleware.QueryCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -143,6 +145,7 @@ CACHES = {
 		'BINARY': True,
     }
 }
+#JOHNNY_MIDDLEWARE_KEY_PREFIX='jc_isf'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 

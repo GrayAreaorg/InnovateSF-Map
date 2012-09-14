@@ -86,10 +86,10 @@ function get_type(location, higher) {
   var i = -1;
   var type_obj = {};
   _.each(location.fields.type, function(obj){
-    x = _.values(obj)[0]
+    var x = _.values(obj)[0]
     if(higher == true) { 
       if (x > i) {
-        x = i;
+        i = x;
         type_obj = _.keys(obj)[0]; 
       }
     } else {
@@ -100,6 +100,7 @@ function get_type(location, higher) {
   });
 	returnType = _.find(types, function(obj){ return obj.fields.name == type_obj  });
 	if (!returnType) {
+		console.log('couldn\'t find type:');
   	console.log(location);
 		return _.find(types, function(obj){ return obj.fields.name == 'company' });
 	} else {
@@ -171,8 +172,8 @@ function edit_link(linkID, theName){
 			});
 		} else {
 			$.get($(this).attr('href'), function(response){
-				var loggedInMessage = "<h1>You have to be logged in to do that!</h1><a id='register_link' href='/accounts/create'>Don't have an account? Register now - it's super easy.</a>";
-				$('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href=''>Close</a>" + loggedInMessage + response).fadeIn('fast').find('input[name=next]').val('/'+hackNext);
+				var loggedInMessage = "<h1>You have to be logged in to do that!</h1><div id='register_link'>Don't have an account? <a href='/accounts/create'>Register here</a> - it's super easy.</div>";
+				$('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href=''>x</a>" + loggedInMessage + response).fadeIn('fast').find('input[name=next]').val('/'+hackNext);
 			});
 		}
 	});
@@ -204,9 +205,6 @@ function submit_form(form, container){
 
 $(function(){
   _.each(types, function(obj,i){
-		if(typeof obj == undefined) {
-			types.splice(i,1);
-		}
     obj['layerGroup'] = new L.LayerGroup();
     button = $("#main-menu li input[name="+obj.fields.name+"]");
     sub = button.parent().parent().parent().find('ul li');
@@ -234,9 +232,6 @@ $(function(){
   })
 
   _.each(locations, function(location,i){
-		if(typeof location == undefined) {
-			locations.splice(i,1);
-		}
   	var icon;
   	switch(get_type(location, false).fields.name) {
   		case 'financial-organization':
@@ -248,22 +243,21 @@ $(function(){
   		default:
   			icon = startupIcon;
   	}
+		var hoverTitle = $('<h3 class="hover-title">').text(location.fields.name);
 		var theLink = "<a class='edit_link' href='/locations/edit/"+location.pk+"'>Edit</a>";
   	var popup = "<h1>"+location.fields.name+"</h1>"+theLink+"<div style='max-height:100px;overflow:auto'>"+location.fields.desc+"</div>";
   	var marker = L.marker( 	new L.LatLng(location.fields.lat, location.fields.lng), {icon: icon} ).bindPopup(popup)
   			.on('click', function(){
 					this.openPopup();
-					console.log(this);
 					hoverTitle.remove();
 					edit_link(location.pk, this['name']);
   			})
   			.on('mouseover', function(){
-  				x = $(this._icon).offset();
-  				hoverTitle = $('<h3 class="hover-title">')	.appendTo('#map')
-  										.css(	{	'position':'absolute',
-  													'left':x.left,
-  													'top':x.top-41})
-  										.text(location.fields.name);
+  				var icon = $(this._icon);
+  				hoverTitle.css(	{	'position':'absolute',
+  													'height':0,
+  													'top':icon.offset().top-41} ).appendTo('#map');
+					hoverTitle.css({'left':(icon.offset().left + (icon.width()/2) + 5) - (hoverTitle.width()/2), height:'auto'});
   			})
   			.on('mouseout', function(){
   				hoverTitle.remove();
@@ -356,7 +350,7 @@ $(function(){
 	$("#login_button").click(function(){
 		$.get("/locations/create", function(response){
 			var loggedInMessage = "";
-			if(!get_user().logged_in) { loggedInMessage = "<h1>You have to be logged in to do that!</h1><a id='register_link' href='/accounts/create'>Don't have an account? Register now - it's super easy.</a>";  
+			if(!get_user().logged_in) { loggedInMessage = "<h1>You have to be logged in to do that!</h1><div id='register_link'>Don't have an account? <a href='/accounts/create'>Register here</a> - it's super easy.</div>";  
 			}
 			look = $('<div>').appendTo('#container').addClass('modal clearfix').html("<a id='modal_close' href='#'>x</a>" + loggedInMessage + response).fadeIn('fast');
 			look.find('input[name=next]').val('/');

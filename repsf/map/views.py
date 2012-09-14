@@ -10,11 +10,10 @@ from django.contrib import messages
 from repsf.map import util
 from django.views.decorators.cache import cache_page
 
-@cache_page(60 * 60 * 24)
 def home(request, location=None, embed=False):
 	json_serializer = serializers.get_serializer("json")()
 	types 		= Type.objects.filter(parent = None)
-	locs		= json_serializer.serialize(Location.objects.all(), ensure_ascii=True, use_natural_keys = True)
+	locs		= json_serializer.serialize(Location.objects.all().exclude(lat=None).exclude(type=None), ensure_ascii=True, use_natural_keys = True)
 	types_json	= json_serializer.serialize(Type.objects.all(), ensure_ascii=True, use_natural_keys = True)
 	try:
 		focus = location
@@ -31,6 +30,7 @@ def create(request):
 	elif request.method == "POST":
 		newloc = LocationForm(request.POST)
 		if newloc.is_valid():
+			loc.created_by = request.user
 			loc = newloc.save(commit=False)
 			geo = util.geocode(loc.address)
 			

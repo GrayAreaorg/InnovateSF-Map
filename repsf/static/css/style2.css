@@ -38,7 +38,10 @@ html, body{
 	height: 100%;
 }
 
-body, button, input, select, textarea { font-family: sans-serif; color: #222; }
+body, button, input, select, textarea, a, p { font-family: "Helvetica Neue","Helvetica",Arial,sans-serif; color: whiteSmoke; }
+h1,h2,h3,h4,h5,h6 {
+	font-family:"Maven Pro",sans-serif;
+}
 
 /* 
  * Remove text-shadow in selection highlight: h5bp.com/i
@@ -243,8 +246,6 @@ html.ie9 h3.hover-title {
 
 }
 
-
-
 /* ==|== print styles =======================================================
    Print styles.
    Inlined to avoid required HTTP connection: h5bp.com/r
@@ -265,21 +266,12 @@ html.ie9 h3.hover-title {
   h2, h3 { page-break-after: avoid; }
 }
 
-@font-face {
-    font-family: 'League Gothic';
-    src: url('font/League_Gothic-webfont.eot');
-    src: url('font/League_Gothic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('font/League_Gothic-webfont.woff') format('woff'),
-         url('font/League_Gothic-webfont.ttf') format('truetype'),
-         url('font/League_Gothic-webfont.svg#LeagueGothicRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
 
-}
+/* styles */
+
 /* ==================================================================================================================== */
 /* ! The 1140px Grid V2 by Andy Taylor \ http://cssgrid.net \ http://www.twitter.com/andytlr \ http://www.andytlr.com   */
 /* ==================================================================================================================== */
-/*FONTS!*/
 .container {
   padding-left: 20px;
   padding-right: 20px;
@@ -407,7 +399,7 @@ a:hover, a:visited:hover {
   text-align: center;
   border-radius: 15px;
   color: #c8cac8;
-  font: 12px "League Gothic", Impact, sans-serif;
+  font: 12px "Maven Pro", sans-serif;
   font-weight: bold;
   font-size: 1.1em;
 }
@@ -462,19 +454,22 @@ header #main-menu #search_form {
   width: 100%;
 }
 header #main-menu #search_form #search_field {
-font-size: 1.2em;
-width: 100%;
-height: 40px;
-margin-bottom:0px!important;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  font-size: 1.2em;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 0!important;
 }
 header #main-menu #search_form #search_field:focus {
-  outline: none;
+  outline: none!important;
 }
 header #main-menu li {
   list-style-type: none;
-  font-family: "League Gothic", Impact, sans-serif;
+  font-family: "Maven Pro", sans-serif;
   text-transform: uppercase;
-  font-size: 1.2rem;
+  font-size: 1.0rem;
   margin: 0 0 0 0;
   border-bottom: 1px #484948 solid;
   float: left;
@@ -489,7 +484,7 @@ header #main-menu li div.menu-label {
   vertical-align: middle;
 }
 header #main-menu li div.menu-label:hover {
-  background: #5296b2;
+  background: #3d3c67;
   cursor: pointer;
 }
 header #main-menu li div.menu-label .icon {
@@ -524,6 +519,11 @@ header #main-menu li div.menu-label label {
   min-height: 1px;
   width: 65.4%;
   float: left;
+  font-weight: bold;
+}
+header #main-menu li div.menu-label label span {
+  color: #c8cac8;
+  font-weight: normal;
 }
 header #main-menu li div.menu-label .toggle {
   margin-right: 3.8%;
@@ -596,13 +596,6 @@ header #menu_close:hover {
   width: 100;
   margin-bottom: 10px;
 }
-.loader {
-	display:block;
-	background:url(../img/ajax-loader.gif);
-	width:31px;
-	height:31px;
-	position:absolute;
-}
 .messages li.success {
   background: #53b357;
   border: 1px solid #419244;
@@ -620,24 +613,39 @@ header #menu_close:hover {
 form {
   position: relative;
 }
+form li {
+  float: left;
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+  list-style-type: none;
+}
 form label {
   margin-right: 3.8%;
   float: left;
   min-height: 1px;
-  width: 22.05%;
+  width: 30.75%;
   text-align: right;
   font-weight: bold;
-  margin-bottom: 10px;
 }
 form input, form textarea, form select {
-  outline: none;
-  border: 1px solid #c8cac8;
+  color: #222;
   margin-right: 3.8%;
   float: left;
   min-height: 1px;
   width: 65.4%;
   margin-right: 0px;
-  margin-bottom: 10px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid #c8cac8;
+  padding: 5px;
+  margin: 0;
+  box-sizing: border-box;
+}
+form input:focus, form textarea:focus, form select:focus {
+  box-shadow: 0px 0px 4px #f7f312;
 }
 form textarea {
   height: 100px;
@@ -657,31 +665,56 @@ form input[type=submit] {
   display: block;
   clear: both;
   width: 100px;
-  background: #f7f312 url(alert-overlay.png) repeat-x;
+  background-color: #f7f312;
+  color: #242424 !important;
+  height: 15px;
   display: inline-block;
   padding: 5px 10px 6px;
-  color: #242424;
-  text-decoration: none;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  cusrsor: pointer;
+  text-decoration: none;
   position: relative;
-  cursor: pointer;
-  height: 15px;
+  background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 20%, rgba(0, 0, 0, 0.2) 100%);
+  /* FF3.6+ */
+
+  background-image: -webkit-gradient(linear, left 20%, left bottom, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0.2)));
+  /* Chrome,Safari4+ */
+
+  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 20%, rgba(0, 0, 0, 0.2) 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0) 20%, rgba(0, 0, 0, 0.2) 100%);
+  /* Opera 11.10+ */
+
+  background-image: -ms-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #606060 100%);
+  /* IE10+ */
+
+  background-image: linear-gradient(top, rgba(255, 255, 255, 0) 20%, rgba(0, 0, 0, 0.2) 100%);
+  /* W3C */
+
   height: 25px;
   margin: 0 auto;
 }
 #map h3.hover-title {
-  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+  color: whiteSmoke;
+  padding: 2px;
+  background-color: rgba(20, 19, 32, 0.95);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
 }
 #map .leaflet-popup {
   min-width: 350px;
 }
 #map .leaflet-popup-content-wrapper, #map .leaflet-popup-tip {
-  background-color: rgba(42, 41, 71, 0.9);
+  background-color: rgba(20, 19, 32, 0.9);
   color: whiteSmoke !important;
 }
 footer {
@@ -757,10 +790,18 @@ footer #mailchimp_link {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  background-color: rgba(42, 41, 71, 0.9);
-  z-index: 9999;
+  background-color: rgba(20, 19, 32, 0.9);
+  z-index: 999;
   height: auto;
   padding: 20px;
+}
+.modal h1 {
+  margin-bottom: 0.5em;
+}
+.modal #register_link {
+  margin-bottom: 0.7em;
+  font-weight: bold;
+  display: block;
 }
 .modal #modal_close, .modal #mailchimp_close {
   position: absolute;
@@ -791,10 +832,18 @@ footer #mailchimp_link {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  background-color: rgba(42, 41, 71, 0.9);
+  background-color: rgba(20, 19, 32, 0.9);
   z-index: 999;
   height: auto;
   padding: 20px;
+}
+#mailchimp h1, #about h1 {
+  margin-bottom: 0.5em;
+}
+#mailchimp #register_link, #about #register_link {
+  margin-bottom: 0.7em;
+  font-weight: bold;
+  display: block;
 }
 #mailchimp #modal_close,
 #about #modal_close,
@@ -1068,7 +1117,7 @@ footer #mailchimp_link {
   visibility: hidden;
 }
 .big {
-  font-size: 1.4em;
+  font-size: 1.2em;
   font-weight: bold;
 }
 /* Contain floats: h5bp.com/q */.clearfix:before, .clearfix:after {
@@ -1083,20 +1132,40 @@ footer #mailchimp_link {
 }
 /* stolen from Zurb */
 .awesome, .awesome:visited {
-  background: #f7f312;
+  background-color: #f7f312;
+  color: #242424 !important;
+  height: 15px;
   display: inline-block;
   padding: 5px 10px 6px;
-  color: #242424;
-  text-decoration: none;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  cusrsor: pointer;
+  text-decoration: none;
   position: relative;
-  cursor: pointer;
-  height: 15px;
+  background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 20%, rgba(0, 0, 0, 0.2) 100%);
+  /* FF3.6+ */
+
+  background-image: -webkit-gradient(linear, left 20%, left bottom, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0.2)));
+  /* Chrome,Safari4+ */
+
+  background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 20%, rgba(0, 0, 0, 0.2) 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0) 20%, rgba(0, 0, 0, 0.2) 100%);
+  /* Opera 11.10+ */
+
+  background-image: -ms-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #606060 100%);
+  /* IE10+ */
+
+  background-image: linear-gradient(top, rgba(255, 255, 255, 0) 20%, rgba(0, 0, 0, 0.2) 100%);
+  /* W3C */
+
 }
 .awesome:hover {
   background-color: #5296b2;
@@ -1114,8 +1183,7 @@ footer #mailchimp_link {
 	-moz-transition: -moz-transform 0.25s ease-out, opacity 0.25s ease-in;
 	-o-transition: -o-transform 0.25s ease-out, opacity 0.25s ease-in;
 	transition: transform 0.25s ease-out, opacity 0.25s ease-in;
-	}
-
+}
 /* marker clustering */
 .marker-cluster-small {
   background-color: rgba(42, 41, 71, 0.4);
@@ -1155,14 +1223,14 @@ footer #mailchimp_link {
   text-align: center;
   border-radius: 15px;
   color: #c8cac8;
-  font: 12px "League Gothic", Impact, sans-serif;
+  font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 1.1em;
 }
 .marker-cluster span {
   line-height: 30px;
 }
-/*Autocomplete*/
+
 .ac_results {
 	padding: 0px;
 	border: 1px solid black;
@@ -1211,3 +1279,4 @@ footer #mailchimp_link {
 	background-color: #0A246A;
 	color: white;
 }
+
