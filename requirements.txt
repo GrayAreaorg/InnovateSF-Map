@@ -2,7 +2,6 @@ Django == 1.4
 South==0.7.6
 boto==2.5.2
 dj-database-url==0.2.1
-django-cache-machine==0.6
 django-email-as-username==1.5.1
 -e git://github.com/dominno/django-moderation.git#egg=django-moderation
 pylibmc==1.2.2
