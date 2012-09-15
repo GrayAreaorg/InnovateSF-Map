@@ -137,7 +137,11 @@ INSTALLED_APPS = (
     'south',
 	'storages',
 	'moderation',
+	'raven.contrib.django',
 )
+
+
+SENTRY_DSN = os.environ.get('sentry_dsn')
 
 CACHES = {
     'default': {

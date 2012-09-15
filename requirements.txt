@@ -1,17 +1,19 @@
-pylibmc==1.2.2
-django-pylibmc-sasl==0.2.4
 Django==1.4
 South==0.7.6
 boto==2.5.2
 dj-database-url==0.2.1
-django-email-as-username==1.5.1
 -e git+git://github.com/dominno/django-moderation.git#egg=django-moderation
+django-email-as-username==1.5.1
+pylibmc==1.2.2
+django-pylibmc-sasl==0.2.4
+django-registration==0.8
 django-storages==1.1.5
 geopy==0.94.2
 gunicorn==0.14.6
 johnny-cache==1.4
 psycopg2==2.4.5
+raven==2.0.6
 requests==0.13.8
+simplejson==2.6.1
 unicodecsv==0.9.0
 wsgiref==0.1.2
-
