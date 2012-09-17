@@ -22,6 +22,8 @@ class Location(models.Model):
 	def get_types_for_admin(self):
 		return "\n".join([t.name for t in self.type.all()])
 	
+	get_types_for_admin.admin_order_field = 'type'
+	
 	def __init__(self, *args, **kwargs):
 		super(Location, self).__init__(*args, **kwargs)
 		self.__original_address = self.address

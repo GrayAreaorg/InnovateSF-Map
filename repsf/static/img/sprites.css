@@ -1,0 +1,28 @@
+.gaffta-small, .mayoroci, .sfciti, .golightly{
+	background: url(sprites.png) no-repeat;
+}
+
+.gaffta-small{
+	background-position: -138px 0;
+	width: 94px;
+	height: 30px;
+}
+
+.mayoroci{
+	background-position: 0 0;
+	width: 137px;
+	height: 40px;
+}
+
+.sfciti{
+	background-position: -241px 0;
+	width: 88px;
+	height: 20px;
+}
+
+.golightly{
+	background-position: -334px 0;
+	width: 118px;
+	height: 24px;
+}
+

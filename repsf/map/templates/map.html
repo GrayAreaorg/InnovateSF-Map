@@ -4,10 +4,10 @@
 
 {% block htmlhead %}
 {% if debug %}
-<!--link rel="stylesheet/less" href="{% get_static_prefix %}/css/style.less" />
+<link rel="stylesheet/less" href="{% get_static_prefix %}/css/style.less" />
 <script src="{% get_static_prefix %}js/less-1.1.5.min.js"></script>
 <link rel="stylesheet" href="{% get_static_prefix %}/css/jquery.autocomplete.css" />
-<link rel="stylesheet" href="{% get_static_prefix %}/css/MarkerCluster.css" /-->
+<link rel="stylesheet" href="{% get_static_prefix %}/css/MarkerCluster.css" />
 {% endif %}
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.2/leaflet.css" />
 <link href="http://cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
@@ -120,7 +120,7 @@
 <a href="http://innovation.sfgov.org/" class="cityseal">City of San Francisco</a>
 <a href="http://www.sfciti.com/" class="sfciti">sfciti</a>
 <a href="http://www.golightlyhouse.com/contact/" class="golightly">Golightly House</a>
-<a class="awesome" style="background-color:#333; color:whiteSmoke!important;float:right;margin-top:13px;margin-right:20px;" href="mailto:support@innovatesf.com?subject=Fedback on Innovate SF Map&amp;body=Heres what I think...">Feedback?</a>
+<a class="awesome" id="feedback_link" href="mailto:support@innovatesf.com?subject=Fedback on Innovate SF Map&amp;body=Heres what I think...">Feedback?</a>
 <!--Facebook-->
 <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Finnovatesf.com&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font=arial&amp;height=21&amp;appId=337898285976" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px;" allowTransparency="true"></iframe>
 
