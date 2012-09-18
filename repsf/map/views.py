@@ -14,14 +14,16 @@ from django.views.decorators.cache import cache_page
 def home(request, location=None, embed=False):
 	json_serializer = serializers.get_serializer("json")()
 	types 		= Type.objects.filter(parent = None)
-	locs		= json_serializer.serialize(Location.objects.all().exclude(lat=None).exclude(type=None), ensure_ascii=True, use_natural_keys = True)
+	all_locs	= Location.objects.all().exclude(lat=None).exclude(type=None)
+	locs 		= json_serializer.serialize(all_locs, ensure_ascii=True, use_natural_keys = True)
+	hiring		= all_locs.filter(hiring = True)
 	types_json	= json_serializer.serialize(Type.objects.all(), ensure_ascii=True, use_natural_keys = True)
 	try:
 		focus = location
 	except:
 		focus = None 
 	
-	return render_to_response('map.html', {"types" : types, "locs_json" : locs, "types_json" : types_json, "focus" : focus, "embed" : embed }, context_instance=RequestContext(request) )
+	return render_to_response('map.html', {"types" : types, "locs_json" : locs, "types_json" : types_json, "focus" : focus, "embed" : embed, "levels_deep" : 1 }, context_instance=RequestContext(request) )
 
 @login_required	
 def create(request):

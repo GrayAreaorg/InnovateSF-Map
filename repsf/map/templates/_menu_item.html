@@ -1,0 +1,38 @@
+{% load map_filters %}
+<li class="{{type.name}}">
+  <div class="menu-label">
+    <div id="{{type.name}}-icon" class="icon">&nbsp;</div>
+    <label for="{{type.name}}">
+    {% if type.label  %}
+      {{type.label}}
+    {% else %}
+      {{type.name|replace:"-, "|title}} 
+    {% endif %}  
+      <span>({{type.location_set.count}})</span>
+    </label>
+    <div class="toggle">
+      <input name="{{type.name}}" {% if parent %}data-parent="{{parent.name}}"{% endif %} type="checkbox" checked />
+    </div>
+  </div>
+<!--subtypes-->
+  {% if type.type_set.count %}
+  <ul class="sub">
+    {% for subtype in type.type_set.all %}
+      {% with template_name="_menu_item.html" %}
+        {% include template_name with type=subtype parent=type levels_deep=levels_deep|add:"1" %}
+      {% endwith %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+<!-- end subtypes -->
+<!--locations-->
+  {% if type.location_set.count %}
+  <ul class="locations">
+    {% for location in type.location_set.all %}
+      {% include "_location_item.html" %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+<!-- end locations -->
+</li>
+    

@@ -1,0 +1,5 @@
+{% if location.type.count == levels_deep %}
+<li class="location" data-name="{{location.name}}">
+  <a class="tencol twopush" href="#{{location.name}}">{{location.name}}</a>
+</li>
+{% endif %}

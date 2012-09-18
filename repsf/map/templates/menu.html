@@ -1,0 +1,8 @@
+<form id="search_form" method="GET" action="">
+  <input id="search_field" name="q" type="search" autocomplete="off" placeholder="Search on the map..." />
+</form>
+<ul class="top">
+  {% for type in types %}
+    {% include "_menu_item.html" %}
+  {% endfor %}
+</ul>
