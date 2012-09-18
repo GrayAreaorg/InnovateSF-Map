@@ -1,0 +1,63 @@
+.border-radius( @radius: 3px ) {
+	-webkit-border-radius: @radius;
+	   -moz-border-radius: @radius;
+	        border-radius: @radius;		
+}
+
+/* ==|== non-semantic helper classes ========================================
+   Please define your styles before this section.
+   ========================================================================== */
+
+/* For image replacement */
+.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; }
+.ir br { display: none; }
+
+/* Hide from both screenreaders and browsers: h5bp.com/u */
+.hidden { display: none !important; visibility: hidden; }
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility: hidden; }
+
+.big {
+	font-size:1.2em;
+	font-weight:bold;
+}
+
+/* Contain floats: h5bp.com/q */ 
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+/* stolen from Zurb */
+
+.awesome, .awesome:visited {
+	background-color:@yellow;
+	color:@darkgrey!important;
+	height:15px;
+	display: inline-block; 
+	padding: 5px 10px 6px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	.border-radius(5px);
+	cusrsor:pointer;
+	text-decoration:none;
+	position:relative;
+	background-image: -moz-linear-gradient(top, rgba(255,255,255,0) 20%, rgba(0,0,0,.2) 100%); /* FF3.6+ */
+	background-image: -webkit-gradient(linear, left 20%, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(0,0,0,.2))); /* Chrome,Safari4+ */
+	background-image: -webkit-linear-gradient(top, rgba(255,255,255,0) 20%,rgba(0,0,0,.2) 100%); /* Chrome10+,Safari5.1+ */
+	background-image: -o-linear-gradient(top, rgba(255,255,255,0) 20%,rgba(0,0,0,.2) 100%); /* Opera 11.10+ */
+	background-image: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgb(96,96,96,0) 100%); /* IE10+ */
+	background-image: linear-gradient(top, rgba(255,255,255,0) 20%,rgba(0,0,0,.2) 100%); /* W3C */
+}
+.awesome:hover							{ background-color: @blue; color:@white!important;}
+.awesome:active							{ top: 1px; }
+.small.awesome, .small.awesome:visited 	{ font-size: 11px; padding: ; }

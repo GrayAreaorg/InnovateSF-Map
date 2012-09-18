@@ -1,0 +1,52 @@
+@media only screen and (min-width: 768px) {
+header {
+	width:25%;
+	right:5%;
+	top:0;
+	bottom:105px;
+	z-index:2;
+	overflow:visible;
+	&.hidemenu {
+		top:0;
+		bottom:auto;
+		height:0px;
+		padding-bottom:0px;
+		#branding {
+			display:none;
+		}
+		#main-menu {
+			display:none;
+		}
+		#menu_close {
+			&:after {
+				content:"\002193";
+			}
+		}
+	}
+	#main-menu {
+		position:absolute;
+		top:200px;
+		bottom:20px;
+		height:auto;
+		padding:0;
+		margin:0;
+		width:100%;
+		overflow-y:auto;
+		overflow-x:hidden;
+		left:0;
+	}
+	#menu_close {
+		top:auto;
+		bottom:-20px;
+	}
+	#menu_close:hover {
+		top:auto;
+	}
+}
+
+#map {
+	.leaflet-bottom {
+		bottom:48px;
+	}
+}
+}

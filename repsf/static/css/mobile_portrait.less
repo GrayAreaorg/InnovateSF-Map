@@ -1,0 +1,86 @@
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+header {
+	width:100%;
+	left:0;
+	right:0;
+	bottom:0px;
+	top:66%;
+	z-index:2;
+	margin:0;
+	padding:0;
+	overflow:visible;
+	#branding {
+		.sixcol;
+		text-align:center;
+		h1 {
+			position:relative;
+			height:100px;
+			width:100%;
+			text-indent:-100%;
+			display:block;
+			margin:0;
+			vertical-align:top;
+			margin:0 auto;
+		}
+		p {
+			display:none;
+		}
+		#buttons {
+			a {
+				width:80%;
+				margin-top:10px;
+			}
+		}
+	}
+	#main-menu {
+		.sixcol;
+		.last;
+		position:absolute;
+		right:0;
+		left:auto;
+		height:100%;
+		padding:0;
+		margin:0;
+		overflow-y:auto;
+		overflow-x:hidden;
+		display:inline-block;
+		ul {
+			float:left;
+			width:100%;
+			padding-bottom:50px;
+		}
+	}
+	#menu_close {
+		top:-20px;
+		&:after{
+			content:"\002193";
+		}
+		&:hover {
+			top:-20px;
+			bottom:auto!important;
+		}
+	}
+	&.hidemenu {
+		height:0px;
+		#branding {display:none}
+		#main-menu {display:none}
+		top:auto;
+		bottom:0;
+		#menu_close {
+			&:after{
+				content:"\002191";
+			}
+		}
+	}
+}
+#map {
+	.leaflet-bottom {
+		top:0px!important;
+		width:50%!important;
+		bottom:auto;
+	}
+}
+footer {
+	display:none;
+}
+}
